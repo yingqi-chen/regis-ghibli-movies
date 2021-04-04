@@ -3,8 +3,6 @@
 <?php
   require_once 'db.php';
   require_once 'functions.php';
-// should refactor the way query is done. Too many repetition.
-
 
   $create_movies_table_query = "CREATE TABLE IF NOT EXISTS movies (
     id SMALLINT NOT NULL AUTO_INCREMENT,
@@ -14,34 +12,12 @@
     PRIMARY KEY (id)
   )";
 
-$result = $conn->query($create_movies_table_query);
-if (!$result) {
-  die ("Set up data failed");
-}else{
-    echo " $table_name Table is ready!<br>";
-}
-
-
-function create_table($conn, $table_name, $query){
-  echo "Inside $conn, $table_name, $query";
-  $result = $conn->query($query);
-  if (!$result) {
-    die ("Set up data failed");
-  }else{
-      echo " $table_name Table is ready!<br>";
-  }
-}
-
-
 $create_directors_table_query = "CREATE TABLE IF NOT EXISTS directors (
     id SMALLINT NOT NULL AUTO_INCREMENT,
     name VARCHAR(128) NOT NULL,
     introduction TEXT NOT NULL,
     PRIMARY KEY (id)
   )";
-
-create_table($conn, "directors", $create_directors_table_query);
-
 
 $create_characters_table_query = "CREATE TABLE IF NOT EXISTS characters (
     id SMALLINT NOT NULL AUTO_INCREMENT,
@@ -51,15 +27,15 @@ $create_characters_table_query = "CREATE TABLE IF NOT EXISTS characters (
     PRIMARY KEY (id)
   )";
 
-  
-// create_table("movies", $create_movies_table_query);
-create_table("characters", $create_characters_table_query);
+
+create_table($conn, "movies", $create_movies_table_query );
+create_table($conn, "directors", $create_directors_table_query);
+create_table($conn,"characters", $create_characters_table_query);
 
 
-  echo "Inserting values now...";
+  echo "Inserting values now...<br>";
 
 // Will have to add validation later
-
 
 $movie_attribute_array = array("director_id" =>1, "title" => "hih", "year"=>1995);
 $director_attribute_array = array("name" => "director", "introduction" => "wwwwaaat");

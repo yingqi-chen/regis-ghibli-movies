@@ -13,9 +13,9 @@ $rows = $result->num_rows;
 
 for($j = 0; $j < $rows; ++$j){
     $row = $result->fetch_array(MYSQLI_ASSOC);
-    echo "<strong>Director</strong>: <br>", htmlspecialchars($row["director"]), "<br>";
+    echo "<strong>Director</strong>: <br>", htmlspecialchars($row["director_id"]), "<br>";
     echo "<strong>Title</strong>: <br>", htmlspecialchars($row["title"]), "<br>";
-    echo "<strong>Year</strong>: <br>", htmlspecialchars($row["release_year"]), "<br>";
+    echo "<strong>Year</strong>: <br>", htmlspecialchars($row["year"]), "<br>";
     echo "<br>";
 }
 

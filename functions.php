@@ -2,6 +2,16 @@
 
 require_once 'db.php';
 
+function create_table($conn, $table_name, $query){
+    $result = $conn->query($query);
+    if (!$result) {
+        die ("Set up data failed");
+    }else{
+        echo "$table_name Table is ready!<br>";
+    }
+//    $result->close(); #when do I close result? Do I have to?
+}
+
 function insert_data($conn, $table_name, $params_array){
   
     switch($table_name){
@@ -31,7 +41,7 @@ function insert_data($conn, $table_name, $params_array){
     }
  
     if($stmt->execute()){
-       echo "Successfully inserted into $table_name!";
+       echo "Successfully inserted into $table_name!<br>";
      } else{
          echo "Something went wrong. Please try again later.";
      }

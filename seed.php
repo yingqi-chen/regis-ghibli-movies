@@ -27,10 +27,15 @@ $create_characters_table_query = "CREATE TABLE IF NOT EXISTS characters (
     PRIMARY KEY (id)
   )";
 
+$create_users_table_query = "CREATE TABLE IF NOT EXISTS users (
+    username VARCHAR(32) NOT NULL UNIQUE,
+    password VARCHAR(255) NOT NULL
+  )";
 
 create_table($conn, "movies", $create_movies_table_query );
 create_table($conn, "directors", $create_directors_table_query);
 create_table($conn,"characters", $create_characters_table_query);
+create_table($conn, "users", $create_users_table_query);
 
 
   echo "Inserting values now...<br>";

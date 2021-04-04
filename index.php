@@ -3,18 +3,28 @@
 <?php
  require_once 'db.php';
 
- $query = "SELECT * FROM movies";
- $result = $conn->query($query);
- if (!$result){
-     die("Failed to grab result.");
- }
+if (isset($_POST['delete']) && isset($_POST['id'])){
+    $id = $_POST['id'];
+    $query  = "DELETE FROM movies WHERE id='$id'";
+    $result = $conn->query($query);
+    if (!$result) {
+        echo "DELETE failed<br>";
+    }
+}
 
+$query = "SELECT * FROM movies";
+$result = $conn->query($query);
+if (!$result){
+    die("Failed to grab result.");
+}
 
 $rows = $result->num_rows;
 
 for($j = 0; $j < $rows; ++$j){
     $row = $result->fetch_array(MYSQLI_ASSOC);
     $director_id = $row["director_id"];
+    $id = $row["id"];
+//    has to explicitly pass conn bc the scope is available outside of the grab_director_info session
     $director = grab_director_info($conn, $director_id);
 
     if ($director){
@@ -27,6 +37,14 @@ for($j = 0; $j < $rows; ++$j){
     echo "<strong>Title</strong>: <br>", htmlspecialchars($row["title"]), "<br>";
     echo "<strong>Year</strong>: <br>", htmlspecialchars($row["year"]), "<br>";
     echo "<br>";
+
+    echo <<<_DELETE
+      <form action='index.php' method='post'>
+      <input type='hidden' name='delete' value='yes'>
+      <input type='hidden' name='id' value='$id'>
+      <input type='submit' value='DELETE RECORD'></form>
+_DELETE;
+
 }
 
 function grab_director_info($conn, $director_id){

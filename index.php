@@ -12,6 +12,7 @@ if (isset($_POST['delete']) && isset($_POST['id'])){
     }
 }
 
+echo "<button><a href='/create.php'>Click me to create new movie!</a></button><br><br>";
 
 $query = "SELECT * FROM movies";
 $result = $conn->query($query);

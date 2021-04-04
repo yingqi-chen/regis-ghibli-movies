@@ -34,7 +34,7 @@ create_table($conn, "users", $create_users_table_query);
 // Will have to add validation later
 
 $movie_attribute_array = array("director_id" =>1, "title" => "hih", "year"=>1995);
-$director_attribute_array = array("name" => "director");
+$director_attribute_array = array("name" => "director2");
 insert_data($conn, "directors", $director_attribute_array);
 insert_data($conn, "movies", $movie_attribute_array);
 

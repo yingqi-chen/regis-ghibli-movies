@@ -22,6 +22,7 @@ function get_post($conn, $var)
     return $conn->real_escape_string($_POST[$var]);
 };
 
+
 function query_directors($conn)
 {
     $directors = array();
@@ -36,22 +37,27 @@ function query_directors($conn)
             "director_id" => $row["id"],
             "name" => $row["name"]
         );
+        print_r("Hi!!!:::".$director_attr ."<br>") ;
         array_push($directors, $director_attr);
-
-        $result->close();
     }
     return $directors;
 }
 ?>
 
-
+<h1>Create your favorite Ghibli movies here!</h1>
 <form action="create.php" method="post"><pre>
-  Director <input type="text" name="director_id">
-     Title <input type="text" name="title">
-      Year <input type="text" name="year">
-           <input type="submit" value="ADD RECORD">
+     Title    <input type="text" name="title">
+      Year    <input type="text" name="year">
+     Director <select name='director_id' size="1">
+             <?php
+               foreach($director_list as $index=> $director){
+                  $select_id = $director['director_id'];
+                  $display_name = $director['name'];
+                   echo "<option value=$select_id>$display_name</option>";
+                  }
+            ?>
+        </select>
+        <br>
+     <input type="submit" value="ADD RECORD">
+
   </pre></form>
-
-<datalist id='links'>
-
-</datalist>

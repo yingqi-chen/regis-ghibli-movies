@@ -12,36 +12,12 @@ if (!empty($_POST['director_id'])   &&
     $movie_attributes = array("director_id"=>$director_id, "title" => $title,"year" => $year);
     $insert_result = insert_data($conn, "movies", $movie_attributes);
         $_POST = array();
+    header("location: index.php");
 }
 
 $director_list = query_directors($conn);
 print_r($director_list);
 
-function get_post($conn, $var)
-{
-    return $conn->real_escape_string($_POST[$var]);
-};
-
-
-function query_directors($conn)
-{
-    $directors = array();
-    $directors_query = "SELECT * FROM directors";
-    $result = $conn->query($directors_query);
-    if (!$result) die ("Database access failed");
-
-    $rows = $result->num_rows;
-    for ($j = 0; $j < $rows; ++$j) {
-        $row = $result->fetch_array(MYSQLI_ASSOC);
-        $director_attr = array(
-            "director_id" => $row["id"],
-            "name" => $row["name"]
-        );
-        print_r("Hi!!!:::".$director_attr ."<br>") ;
-        array_push($directors, $director_attr);
-    }
-    return $directors;
-}
 ?>
 
 <h1>Create your favorite Ghibli movies here!</h1>

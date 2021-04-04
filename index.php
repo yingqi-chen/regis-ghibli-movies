@@ -12,14 +12,6 @@ if (isset($_POST['delete']) && isset($_POST['id'])){
     }
 }
 
-echo <<<_END
-  <form action="create.php" method="post"><pre>
-  Director <input type="text" name="director">
-     Title <input type="text" name="title">
-      Year <input type="text" name="year">
-           <input type="submit" value="ADD RECORD">
-  </pre></form>
-_END;
 
 $query = "SELECT * FROM movies";
 $result = $conn->query($query);

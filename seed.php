@@ -8,7 +8,7 @@
     id SMALLINT NOT NULL AUTO_INCREMENT,
     director_id SMALLINT NOT NULL,
     title VARCHAR(128) NOT NULL,
-    year CHAR(4) NOT NULL,
+    year YEAR NOT NULL,
     PRIMARY KEY (id)
   )";
 

@@ -6,13 +6,19 @@ if (!empty($_POST['director_id'])   &&
     !empty($_POST['title'])    &&
     !empty($_POST['year']))
 {
-    $director_id   = mysql_entities_fix_string($conn, 'director_id');
     $title    = mysql_entities_fix_string($conn, 'title');
-    $year     = mysql_entities_fix_string($conn, 'year');
-    $movie_attributes = array("director_id"=>$director_id, "title" => $title,"year" => $year);
-    $insert_result = insert_data($conn, "movies", $movie_attributes);
+    $title_available = check_title($conn, $title);
+    if ($title_available){
+        $director_id   = mysql_entities_fix_string($conn, 'director_id');
+        $year     = mysql_entities_fix_string($conn, 'year');
+        $movie_attributes = array("director_id"=>$director_id, "title" => $title,"year" => $year);
+        $insert_result = insert_data($conn, "movies", $movie_attributes);
         $_POST = array();
-    header("location: index.php");
+        header("location: index.php");
+    }else{
+        die("The movie with this title is already created.");
+    }
+
 }
 
 $director_list = query_directors($conn);

@@ -9,7 +9,6 @@ function create_table($conn, $table_name, $query){
     }else{
         echo "$table_name Table is ready!<br>";
     }
-//    $result->close(); #when do I close result? Do I have to?
 }
 
 function insert_data($conn, $table_name, $params_array){
@@ -27,16 +26,12 @@ function insert_data($conn, $table_name, $params_array){
        $stmt = $conn->prepare("INSERT INTO $table_name VALUES(?,?)");
        $stmt->bind_param('ss', $params_array["username"], $params_array["password"]);
        break;
-//      case "characters":
-//       $stmt = $conn->prepare("INSERT INTO $table_name VALUES(NULL,?,?,?)");
-//       $stmt->bind_param('ssi', $params_array["name"], $params_array["introduction"], $params_array["movie_id"]);
-//       break;
     }
  
     if($stmt->execute()){
        echo "Success for inserting data into $table_name <br>";
      } else{
-         echo "Something went wrong. Please try again later.";
+       echo "Something went wrong. Please try again later.";
      }
  
     $stmt->close();
@@ -124,11 +119,6 @@ function query_movie($conn, $id)
     return $movie;
 }
 
-function get_post($conn, $var)
-{
-    return $conn->real_escape_string($_POST[$var]);
-};
-
 function mysql_entities_fix_string($conn, $string)
 {
     return htmlentities(mysql_fix_string($conn, $string));
@@ -139,4 +129,12 @@ function mysql_fix_string($conn, $string)
     if (get_magic_quotes_gpc()) $string = stripslashes($string);
     return $conn->real_escape_string($string);
 }
+
+function check_title($conn, $title){
+    $movies_query = "SELECT * FROM movies WHERE title = $title";
+    $result = $conn->query($movies_query);
+    if ($result) return false;
+    return true;
+}
+
 ?>

@@ -2,6 +2,7 @@
 
 <?php
  require_once 'db.php';
+ require_once 'functions.php';
 
 if (isset($_POST['delete']) && isset($_POST['id'])){
     $id = $_POST['id'];
@@ -24,8 +25,8 @@ $rows = $result->num_rows;
 
 for($j = 0; $j < $rows; ++$j){
     $row = $result->fetch_array(MYSQLI_ASSOC);
-    $director_id = $row["director_id"];
-    $id = htmlspecialchars($row["id"]);
+    $director_id = mysql_entities_fix_string($conn, $row["director_id"]);
+    $id = mysql_entities_fix_string($conn, $row["id"]);
 //    has to explicitly pass conn bc the scope is available outside of the grab_director_info session
     $director = grab_director_info($conn, $director_id);
 
@@ -36,8 +37,8 @@ for($j = 0; $j < $rows; ++$j){
     }
 
     echo "<strong>Director</strong>: <br>", $director_name, "<br>";
-    echo "<strong>Title</strong>: <br>", htmlspecialchars($row["title"]), "<br>";
-    echo "<strong>Year</strong>: <br>", htmlspecialchars($row["year"]), "<br>";
+    echo "<strong>Title</strong>: <br>", mysql_entities_fix_string($conn, $row["title"]), "<br>";
+    echo "<strong>Year</strong>: <br>", mysql_entities_fix_string($conn, $row["year"]), "<br>";
     echo "<br>";
 
     echo "<button><a href='/update.php?id=$id'>Click me to update this movie!</a></button><br><br>";

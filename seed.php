@@ -29,17 +29,18 @@ create_table($conn, "directors", $create_directors_table_query);
 create_table($conn, "users", $create_users_table_query);
 
 
-  echo "Inserting values now...<br>";
+echo "Inserting values now...<br>";
 
-// Will have to add validation later
-
-$movie_attribute_array = array("director_id" =>1, "title" => "hih", "year"=>1995);
-$director_attribute_array = array("name" => "director2");
-insert_data($conn, "directors", $director_attribute_array);
+$movie_attribute_array = array("director_id" =>1, "title" => "Castle in the Sky", "year"=>1986);
+$director1_attribute_array = array("name" => "Hayao Miyazaki");
+$director2_attribute_array = array("name" => "Isao Takahata");
+$director3_attribute_array = array("name" => "Yoshifumi Kondō");
+insert_data($conn, "directors", $director1_attribute_array);
+insert_data($conn, "directors", $director2_attribute_array);
+insert_data($conn, "directors", $director3_attribute_array);
 insert_data($conn, "movies", $movie_attribute_array);
 
 
-// When should I close connection?? At the end or after every statment?
 $conn->close();
 
 ?>

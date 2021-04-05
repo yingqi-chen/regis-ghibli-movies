@@ -34,7 +34,7 @@ function insert_data($conn, $table_name, $params_array){
     }
  
     if($stmt->execute()){
-       echo "success for $table_name";
+       echo "Success for inserting data into $table_name <br>";
      } else{
          echo "Something went wrong. Please try again later.";
      }
@@ -108,9 +108,7 @@ function query_movies($conn)
 
 function query_movie($conn, $id)
 {
-    echo $id;
     $movies_query = "SELECT * FROM movies WHERE id = $id";
-    echo $movies_query;
     $result = $conn->query($movies_query);
     if (!$result) {
         die ("No such movie");
@@ -123,7 +121,6 @@ function query_movie($conn, $id)
         "director_id"=>$row["director_id"],
         "year" => $row["year"]
     );
-    $result->close();
     return $movie;
 }
 
@@ -131,4 +128,15 @@ function get_post($conn, $var)
 {
     return $conn->real_escape_string($_POST[$var]);
 };
+
+function mysql_entities_fix_string($conn, $string)
+{
+    return htmlentities(mysql_fix_string($conn, $string));
+}
+
+function mysql_fix_string($conn, $string)
+{
+    if (get_magic_quotes_gpc()) $string = stripslashes($string);
+    return $conn->real_escape_string($string);
+}
 ?>

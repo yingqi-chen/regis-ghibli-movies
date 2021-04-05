@@ -7,10 +7,10 @@ if (!empty($_POST['director_id'])   &&
     !empty($_POST['year'])    &&
     !empty($_POST['id']))
 {
-    $director_id   = get_post($conn, 'director_id');
-    $title    = get_post($conn, 'title');
-    $year     = get_post($conn, 'year');
-    $id    = get_post($conn, 'id');
+    $director_id   = mysql_entities_fix_string($conn, 'director_id');
+    $title    = mysql_entities_fix_string($conn, 'title');
+    $year     = mysql_entities_fix_string($conn, 'year');
+    $id    = mysql_entities_fix_string($conn, 'id');
     $movie_attributes = array("director_id"=>$director_id, "title" => $title,"year" => $year, "id"=>$id);
     $update_result = update_data($conn, "movies", $movie_attributes);
     $_POST = array();

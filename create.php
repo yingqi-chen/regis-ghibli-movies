@@ -6,9 +6,9 @@ if (!empty($_POST['director_id'])   &&
     !empty($_POST['title'])    &&
     !empty($_POST['year']))
 {
-    $director_id   = get_post($conn, 'director_id');
-    $title    = get_post($conn, 'title');
-    $year     = get_post($conn, 'year');
+    $director_id   = mysql_entities_fix_string($conn, 'director_id');
+    $title    = mysql_entities_fix_string($conn, 'title');
+    $year     = mysql_entities_fix_string($conn, 'year');
     $movie_attributes = array("director_id"=>$director_id, "title" => $title,"year" => $year);
     $insert_result = insert_data($conn, "movies", $movie_attributes);
         $_POST = array();
@@ -16,7 +16,6 @@ if (!empty($_POST['director_id'])   &&
 }
 
 $director_list = query_directors($conn);
-print_r($director_list);
 
 ?>
 

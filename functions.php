@@ -27,15 +27,18 @@ function insert_data($conn, $table_name, $params_array){
        break;
     }
 
+    return $stmt->execute();
 
-    if($stmt->execute()){
-       echo "Success for inserting data into $table_name <br>";
-     } else{
-       echo "Something went wrong. $conn->error Please try again later. <br>";
-     }
+//
+//    if($stmt->execute()){
+//       echo "Success for inserting data into $table_name <br>";
+//     } else{
+//       echo "Something went wrong. $conn->error Please try again later. <br>";
+//     }
+//
+//
+//    $stmt->close();
 
-
-    $stmt->close();
  }
 
 function update_data($conn, $table_name, $params_array){

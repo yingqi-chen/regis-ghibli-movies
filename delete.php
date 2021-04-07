@@ -20,8 +20,7 @@ if (isset($_POST['delete'])) {
 
 }
 
-//$result->close();
-//$conn->close();
+$conn->close();
 ?>
 
 <h2>Are you sure you want to delete?</h2>

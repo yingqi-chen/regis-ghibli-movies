@@ -31,7 +31,7 @@ function insert_data($conn, $table_name, $params_array){
     if($stmt->execute()){
        echo "Success for inserting data into $table_name <br>";
      } else{
-       echo "Something went wrong. Please try again later.";
+       echo "Something went wrong. $conn->error Please try again later. <br>";
      }
  
     $stmt->close();
@@ -39,7 +39,6 @@ function insert_data($conn, $table_name, $params_array){
  }
 
 function update_data($conn, $table_name, $params_array){
-
     switch($table_name){
         case "movies":
             $stmt = $conn->prepare("UPDATE $table_name SET director_id=?, title=?, year=? WHERE id=?");
@@ -121,13 +120,10 @@ function query_movie($conn, $id)
 
 function delete_movie($conn, $param_id){
     $sql = "DELETE FROM movies WHERE id = ?";
-    print_r("what is wrong here 4");
 
     $stmt = $conn->prepare($sql);
-    print_r("what is wrong here 5");
 
     $stmt->bind_param("i", $param_id);
-    print_r("what is wrong here 6");
 
     if($stmt->execute()){
         header("location: index.php");
@@ -136,8 +132,6 @@ function delete_movie($conn, $param_id){
         echo "DELETE failed";
     }
 }
-
-
 
 function mysql_entities_fix_string($conn, $string)
 {

@@ -7,14 +7,14 @@
   $create_movies_table_query = "CREATE TABLE IF NOT EXISTS movies (
     id SMALLINT NOT NULL AUTO_INCREMENT,
     director_id SMALLINT NOT NULL,
-    title VARCHAR(128) NOT NULL,
+    title VARCHAR(128) NOT NULL UNIQUE,
     year YEAR NOT NULL,
     PRIMARY KEY (id)
   )";
 
 $create_directors_table_query = "CREATE TABLE IF NOT EXISTS directors (
     id SMALLINT NOT NULL AUTO_INCREMENT,
-    name VARCHAR(128) NOT NULL,
+    name VARCHAR(128) NOT NULL UNIQUE ,
     PRIMARY KEY (id)
   )";
 

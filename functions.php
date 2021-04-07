@@ -12,7 +12,6 @@ function create_table($conn, $table_name, $query){
 }
 
 function insert_data($conn, $table_name, $params_array){
-  
     switch($table_name){
       case "movies":
        $stmt = $conn->prepare("INSERT INTO $table_name VALUES(NULL,?,?,?)");
@@ -27,15 +26,16 @@ function insert_data($conn, $table_name, $params_array){
        $stmt->bind_param('ss', $params_array["username"], $params_array["password"]);
        break;
     }
- 
+
+
     if($stmt->execute()){
        echo "Success for inserting data into $table_name <br>";
      } else{
        echo "Something went wrong. $conn->error Please try again later. <br>";
      }
- 
+
+
     $stmt->close();
-    return true;
  }
 
 function update_data($conn, $table_name, $params_array){
@@ -142,11 +142,5 @@ function mysql_entities_fix_string($conn, $string)
 
 }
 
-function check_title($conn, $title){
-    $movies_query = "SELECT * FROM movies WHERE title = $title";
-    $result = $conn->query($movies_query);
-    if ($result) return false;
-    return true;
-}
 
 ?>

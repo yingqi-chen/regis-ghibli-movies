@@ -4,29 +4,26 @@ require_once 'functions.php';
 
 if (!empty($_POST['director_id'])   &&
     !empty($_POST['title'])    &&
-    !empty($_POST['year']))
-{
-    echo
-    $title    = mysql_entities_fix_string($conn, 'title');
-    $title_available = check_title($conn, $title);
-    print_r("title_ava is:", $title_available);
-    print_r("title is:", $title);
-    if ($title_available){
-        $director_id   = mysql_entities_fix_string($conn, 'director_id');
-        $year     = mysql_entities_fix_string($conn, 'year');
-        $movie_attributes = array("director_id"=>$director_id, "title" => $title,"year" => $year);
-        $insert_result = insert_data($conn, "movies", $movie_attributes);
-        $_POST = array();
-        header("location: index.php");
-    }else{
-        print_r($title);
-        echo "The movie with this title is already created.";
-    }
+    !empty($_POST['year'])){
 
+    $title    = mysql_entities_fix_string($conn, $_POST['title']);
+    $director_id   = mysql_entities_fix_string($conn, $_POST['director_id']);
+    $year     = mysql_entities_fix_string($conn, $_POST['year']);
+    $movie_attributes = array("director_id"=>$director_id, "title" => $title,"year" => $year);
+    $insert_result = insert_data($conn, "movies", $movie_attributes);
+    if($insert_result){
+        header("location: index.php");
+        $_POST = array();
+    }else{
+        echo "Insert failed. <br>";
+    }
+}elseif($_SERVER["REQUEST_METHOD"] == "POST"){
+    echo "You didn't give me enough information. Please try again.";
 }
 
 $director_list = query_directors($conn);
 
+$conn -> close();
 ?>
 
 <h1>Create your favorite Ghibli movies here!</h1>

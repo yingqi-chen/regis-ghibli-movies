@@ -6,8 +6,11 @@ if (!empty($_POST['director_id'])   &&
     !empty($_POST['title'])    &&
     !empty($_POST['year']))
 {
+    echo
     $title    = mysql_entities_fix_string($conn, 'title');
     $title_available = check_title($conn, $title);
+    print_r("title_ava is:", $title_available);
+    print_r("title is:", $title);
     if ($title_available){
         $director_id   = mysql_entities_fix_string($conn, 'director_id');
         $year     = mysql_entities_fix_string($conn, 'year');
@@ -16,7 +19,8 @@ if (!empty($_POST['director_id'])   &&
         $_POST = array();
         header("location: index.php");
     }else{
-        die("The movie with this title is already created.");
+        print_r($title);
+        echo "The movie with this title is already created.";
     }
 
 }

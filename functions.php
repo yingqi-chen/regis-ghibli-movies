@@ -119,15 +119,33 @@ function query_movie($conn, $id)
     return $movie;
 }
 
-function mysql_entities_fix_string($conn, $string)
-{
-    return htmlentities(mysql_fix_string($conn, $string));
+function delete_movie($conn, $param_id){
+    $sql = "DELETE FROM movies WHERE id = ?";
+    print_r("what is wrong here 4");
+
+    $stmt = $conn->prepare($sql);
+    print_r("what is wrong here 5");
+
+    $stmt->bind_param("i", $param_id);
+    print_r("what is wrong here 6");
+
+    if($stmt->execute()){
+        header("location: index.php");
+        exit();
+    } else{
+        echo "DELETE failed";
+    }
 }
 
-function mysql_fix_string($conn, $string)
+
+
+function mysql_entities_fix_string($conn, $string)
 {
-    if (get_magic_quotes_gpc()) $string = stripslashes($string);
+    $string = trim($string);
+    $string = stripslashes($string);
+    $string = htmlspecialchars($string);
     return $conn->real_escape_string($string);
+
 }
 
 function check_title($conn, $title){

@@ -4,34 +4,36 @@
     <meta charset="UTF-8">
     <title>Ghibli Wiki</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
+    <style type="text/css">
+        .wrapper{
+            margin: 6% auto ;
+        }
+        .button-wrapper{
+            height: 25%;
+            width: 100%;
+        }
+    </style>
 </head>
 <body>
+<div class="wrapper w-50">
 <div class="container">
-    <div class="row"></div>
-    <h1>Check out these great movies!</h1>
-    <div class="row">
+    <h1 class="text-center my-5" >Check out these great movies!</h1>
+    <div class="row gx-5 gy-3">
     <?php
      require_once 'db.php';
      require_once 'functions.php';
-     print_r($_POST);
 
-
-    echo "break";
-
-    echo "<button><a href='/create.php'>Click me to create new movie!</a></button><br><br>";
 
     $query = "SELECT * FROM movies";
     $result = $conn->query($query);
     if (!$result){
         die("Failed to grab result");
     }
-    echo "break";
 
     $rows = $result->num_rows;
 
     for($j = 0; $j < $rows; ++$j){
         $row = $result->fetch_array(MYSQLI_ASSOC);
-        print_r($row);
         $director_id = mysql_entities_fix_string($conn, $row["director_id"]);
         $id = mysql_entities_fix_string($conn, $row["id"]);
     //    has to explicitly pass conn bc the scope is available outside of the grab_director_info session
@@ -44,17 +46,19 @@
         }else{
             $director_name = "unknown";
         }
+
         echo <<<_INFO
+         <div class="col-6 border rounded">
           Director: $director_name <br>
           Title: $title<br>
           Year: $year  <br>
           <br>
-          <a href='/update.php?id=$id'>Update this movie!</a><br>
-          <a href='/delete.php?id=$id'>Delete this movie!</a><br>
-         
+            <div class="btn-group button-wrapper" role="group">
+              <a href='/update.php?id=$id' class="col-6 btn btn-outline-secondary btn-sm">Update this movie</a><br>
+              <a href='/delete.php?id=$id' class="col-6 btn btn-outline-secondary btn-sm">Delete this movie</a><br>
+            </div>
+         </div>
 _INFO;
-
-
     }
 
     function grab_director_info($conn, $director_id){
@@ -75,9 +79,10 @@ _INFO;
     $conn->close();
     ?>
     </div>
+    <a href='/create.php' class='my-3 btn btn-primary'>Click me to create new movie!</a>
+</div>
 </div>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js" integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf" crossorigin="anonymous"></script>
-
 </body>
 </html>
 

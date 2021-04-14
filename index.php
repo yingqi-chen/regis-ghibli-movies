@@ -12,13 +12,24 @@
             height: 25%;
             width: 100%;
         }
+        #ghibli-video{
+            height: 500px;
+            width:100%; 
+        }
     </style>
 </head>
 <body>
+
 <div class="wrapper w-50">
 <div class="container">
-    <h1 class="text-center my-5" >Check out these great movies!</h1>
-    <div class="row gx-5 gy-3">
+    <h1 class="text-center mb-5">Welcome to the Ghibli World!</h1>
+    <h3 class="my-3">What is Ghibli studio? 👇</h3>
+    <iframe 
+        id="ghibli-video"
+        src="https://www.youtube.com/embed/ABrmmsJWfzk" 
+        title="ghibli-video-intro" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+    <h3 class="mt-5 mb-3" >What movies do we have here already? 👀</h3>
+    <div class="row">
         <?php
          require_once 'db.php';
          require_once 'functions.php';
@@ -31,6 +42,7 @@
         }
 
         $rows = $result->num_rows;
+
 
         for($j = 0; $j < $rows; ++$j){
             $row = $result->fetch_array(MYSQLI_ASSOC);
@@ -48,16 +60,21 @@
             }
 
             echo <<<_INFO
-             <div class="col-6 border rounded">
-              Director: $director_name <br>
-              Title: $title<br>
-              Year: $year  <br>
-              <br>
-                <div class="btn-group button-wrapper" role="group">
-                  <a href='/update.php?id=$id' class="col-6 btn btn-outline-secondary btn-sm">Update this movie</a><br>
-                  <a href='/delete.php?id=$id' class="col-6 btn btn-outline-secondary btn-sm">Delete this movie</a><br>
-                </div>
+             <div class="card col-lg-4 col-sm-6 my-2">
+             <img class="card-img-top" src="https://flxt.tmsimg.com/assets/p158931_p_v10_aa.jpg" alt="$title">
+             <div class="card-body">
+                 <h5 class="card-title">$title</h5>
+                 <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
              </div>
+             <ul class="list-group list-group-flush">
+                 <li class="list-group-item">Director: $director_name </li>
+                 <li class="list-group-item">Year: $year  </li>
+             </ul>
+             <div class="card-body">
+                 <a href='/update.php?id=$id' class="card-link">Update</a>
+                 <a href='/delete.php?id=$id' class="card-link">Delete</a>
+             </div>
+         </div>                
 _INFO;
         }
 
@@ -81,7 +98,6 @@ _INFO;
     </div>
     <a href='/create.php' class='my-3 btn btn-primary'>Click me to create new movie!</a>
   </div>
-</div>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js" integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf" crossorigin="anonymous"></script>
 </body>
 </html>

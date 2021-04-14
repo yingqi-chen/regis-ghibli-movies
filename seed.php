@@ -9,6 +9,8 @@
     director_id SMALLINT NOT NULL,
     title VARCHAR(128) NOT NULL UNIQUE,
     year YEAR NOT NULL,
+    image_url VARCHAR(1000),
+    wiki VARCHAR(1000),
     PRIMARY KEY (id)
   )";
 
@@ -31,7 +33,7 @@ create_table($conn, "users", $create_users_table_query);
 
 echo "Inserting values now...<br>";
 
-$movie_attribute_array = array("director_id" =>1, "title" => "Castle in the Sky", "year"=>1986);
+$movie_attribute_array = array("director_id" =>1, "title" => "Castle in the Sky", "year"=>1986, "image_url"=>"https://upload.wikimedia.org/wikipedia/en/f/f5/Castle_in_the_Sky_%281986%29.png", "wiki"=>"https://en.wikipedia.org/wiki/Castle_in_the_Sky");
 $director1_attribute_array = array("name" => "Hayao Miyazaki");
 $director2_attribute_array = array("name" => "Isao Takahata");
 $director3_attribute_array = array("name" => "Yoshifumi Kondō");

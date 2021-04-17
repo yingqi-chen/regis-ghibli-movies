@@ -26,7 +26,7 @@
         <h2 class="text-center my-5">Sign up</h2>
         <p class="text-center h5 my-5">So you can start to create, update, delete movies for the website!</p>
         <div class="form-wrapper">
-            <form action="signup.php" method="post" onsubmit="return validate(this)">
+            <form action="authentication.php" method="post" onSubmit="return validate(this)">
                 <label for="username" class="form-label">Username</label><br>
                 <input type="text" name="username"><br>
                 <label for="password" class="form-label">Password</label> <br>
@@ -42,14 +42,3 @@
 </body>
 </html>
 
-<?php
-//
-//require_once 'db.php';
-//require_once 'functions.php';
-//
-//if ($_SERVER["REQUEST_METHOD"] == "POST"){
-//  print_r ($_POST);
-//}
-//
-//
-//?>

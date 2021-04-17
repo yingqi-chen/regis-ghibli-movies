@@ -145,5 +145,31 @@ function mysql_entities_fix_string($conn, $string)
 
 }
 
+function validate_username($field)
+{
+    if ($field.trim() == "") return "Username cannot be empty.\n";
+    else if (strlen($field) < 5)
+        return "Usernames must be at least 5 characters.\n";
+    else if (preg_match("/[^a-zA-Z0-9_-]/", $field))
+        return "Only a-z, A-Z, 0-9, - and _ allowed in Usernames.\n";
+    return "";
+}
+
+function validate_password($field)
+{
+    if ($field.trim() == "") return "Password cannot be empty.\n";
+    else if (strlen($field) < 6)
+        return "Passwords must be at least 6 characters.\n";
+    return "";
+}
+
+
+function validate_email($field)
+{
+    if ($field.trim() == "") return "Email cannot be empty.\n";
+    else if (((!(strpos($field, '@') > 0)) && (!(strpos($field, '.')>0))) || preg_match("/[^a-zA-Z0-9.@_-]/", $field))
+        return "The Email address is invalid.\n";
+    return "";
+}
 
 ?>

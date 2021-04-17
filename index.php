@@ -20,6 +20,10 @@
 </head>
 <body>
 
+<?php
+print_r("$_GET");
+print_r("$_POST");
+?>
 <div class="wrapper w-50">
 <div class="container">
     <h1 class="text-center mb-5">Welcome to the Ghibli World!</h1>
@@ -33,7 +37,6 @@
         <?php
          require_once 'db.php';
          require_once 'functions.php';
-
 
         $query = "SELECT * FROM movies";
         $result = $conn->query($query);

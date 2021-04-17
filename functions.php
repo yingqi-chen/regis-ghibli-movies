@@ -13,19 +13,21 @@ function create_table($conn, $table_name, $query){
 
 function insert_data($conn, $table_name, $params_array){
     switch($table_name){
-      case "movies":
-       $stmt = $conn->prepare("INSERT INTO $table_name VALUES(NULL,?,?,?)");
-       $stmt->bind_param('iss',$params_array["director_id"], $params_array["title"], $params_array["year"]);
-       break;
-      case "directors":
-       $stmt = $conn->prepare("INSERT INTO $table_name VALUES(NULL,?)");
-       $stmt->bind_param('s',$params_array["name"]);
-       break;
-      case "users":
-       $stmt = $conn->prepare("INSERT INTO $table_name VALUES(?,?, ?)");
-       $stmt->bind_param('sss', $params_array["username"], $params_array["email"], $params_array["password"]);
-       break;
+        case "movies":
+            $stmt = $conn->prepare("INSERT INTO $table_name VALUES(NULL,?,?,?)");
+            $stmt->bind_param('iss',$params_array["director_id"], $params_array["title"], $params_array["year"]);
+            break;
+        case "directors":
+            $stmt = $conn->prepare("INSERT INTO $table_name VALUES(NULL,?)");
+            $stmt->bind_param('s',$params_array["name"]);
+            break;
+        case "users":
+            $stmt = $conn->prepare("INSERT INTO $table_name VALUES(?,?, ?)");
+            $stmt->bind_param('sss', $params_array["username"], $params_array["email"], $params_array["password"]);
+            break;
     }
+
+
 
     return $stmt->execute();
 
@@ -170,6 +172,18 @@ function validate_email($field)
     else if (((!(strpos($field, '@') > 0)) && (!(strpos($field, '.')>0))) || preg_match("/[^a-zA-Z0-9.@_-]/", $field))
         return "The Email address is invalid.\n";
     return "";
+}
+
+function login_user($conn, $email, $password){
+//    Check user exists or not
+    $user_exists = check_user_exists($conn, $email);
+    if ($user_exists){
+//        check the returned user's password hash match $password, if success, return the user, so FE can deal with it
+//          Go to index
+    }else{
+//        go back login page with error in the GET
+    }
+
 }
 
 ?>

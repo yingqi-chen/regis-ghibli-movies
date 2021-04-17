@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<!--    // First has to check if any errors is returned from the url error code
+-->
     <meta charset="UTF-8">
     <title>Sign Up</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
@@ -26,7 +28,7 @@
         <h2 class="text-center my-5">Sign up</h2>
         <p class="text-center h5 my-5">So you can start to create, update, delete movies for the website!</p>
         <div class="form-wrapper">
-            <form action="authentication.php" method="post" onSubmit="return validate(this)">
+            <form action="server_signup.php" method="post" onSubmit="return validate(this)">
                 <label for="username" class="form-label">Username</label><br>
                 <input type="text" name="username"><br>
                 <label for="password" class="form-label">Password</label> <br>
@@ -41,7 +43,7 @@
         <h2 class="text-center my-5">Log In</h2>
         <p class="text-center h5 my-5">Log in to create and update movies that you like.</p>
         <div class="form-wrapper">
-            <form action="authentication.php" method="post" onSubmit="return validate(this)">
+            <form action="server_login.php.php" method="post" onSubmit="return validate(this)">
                 <label for="password" class="form-label">Password</label> <br>
                 <input type="password" name="password"><br>
                 <label for="email" class="form-label">Email</label> <br>

@@ -26,18 +26,24 @@ $fail .= validate_email($email);
 print("78what is going on: $fail");
 
 if ($fail == ""){
-    echo "No fail";
+    $hash     = password_hash($password, PASSWORD_DEFAULT);
+    $user_attributes = array(
+        "username" => $username,
+        "email" => $email,
+        "password" => $hash
+    );
+    print_r($user_attributes);
+    $insert_result = insert_data($conn, "users", $user_attributes);
+    if($insert_result){
+        header("location: index.php");
+        $_POST = array();
+    }else{
+        echo "Insert failed. <br>";
+    }
 }else{
     echo "<h3>$fail</h3>";
 
 }
-
-// if ($fail == "")
-// {
-//   echo "No fail";
-
-//     // This is where you would enter the posted fields into a database,
-//     // preferably using hash encryption for the password.
-// //    header("location: index.php");
-// }
 ?>
+
+<script>alert("hello")</script>

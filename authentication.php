@@ -32,7 +32,7 @@ if ($fail == ""){
         header("location: index.php");
         $_POST = array();
     }else{
-        echo "Insert failed. $conn->error<br>";
+        echo "Insert failed.<br>";
     }
 }else{
     echo "<h3>$fail</h3>";

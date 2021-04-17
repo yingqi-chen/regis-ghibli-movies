@@ -23,6 +23,7 @@ $create_directors_table_query = "CREATE TABLE IF NOT EXISTS directors (
 
 $create_users_table_query = "CREATE TABLE IF NOT EXISTS users (
     username VARCHAR(32) NOT NULL UNIQUE,
+    email VARCHAR (100) NOT NULL UNIQUE, 
     password VARCHAR(255) NOT NULL
   )";
 

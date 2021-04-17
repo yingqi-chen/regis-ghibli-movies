@@ -22,8 +22,8 @@ function insert_data($conn, $table_name, $params_array){
        $stmt->bind_param('s',$params_array["name"]);
        break;
       case "users":
-       $stmt = $conn->prepare("INSERT INTO $table_name VALUES(?,?)");
-       $stmt->bind_param('ss', $params_array["username"], $params_array["password"]);
+       $stmt = $conn->prepare("INSERT INTO $table_name VALUES(?,?, ?)");
+       $stmt->bind_param('sss', $params_array["username"], $params_array["email"], $params_array["password"]);
        break;
     }
 

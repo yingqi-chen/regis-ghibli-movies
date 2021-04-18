@@ -39,6 +39,7 @@ session_start();
                         <input type="text" name="email"><br>
                         <label for="password" class="form-label">Password</label> <br>
                         <input type="password" name="password"><br>
+                        <input type="hidden" name="submit" value="true">
                         <br>
                         <div class="button-middle"><input type="submit" value="Log In" class="btn btn-outline-secondary btn-sm" ></div>
                     </form>

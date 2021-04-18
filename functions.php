@@ -215,4 +215,21 @@ function login_user($conn, $email, $password){
     }
 }
 
+function grab_director_info($conn, $director_id){
+    $grab_director_query = "SELECT * FROM directors WHERE id = $director_id ";
+    $result = $conn->query($grab_director_query);
+    if (!$result){
+        return null;
+    }else{
+        $row = $result->fetch_array(MYSQLI_ASSOC);
+        return array(
+            "director_name" => htmlspecialchars($row["name"]),
+            "director_introduction" => htmlspecialchars($row["introduction"])
+        );
+    }
+    $result->close();
+    $conn->close();
+}
+
+
 ?>

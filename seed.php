@@ -4,13 +4,15 @@
   require_once 'db.php';
   require_once 'functions.php';
 
+  $default_image = "https://prod3.agileticketing.net/images/user/fsc_2553/fs_my_neighbor_totoro_800.jpg";
+
   $create_movies_table_query = "CREATE TABLE IF NOT EXISTS movies (
     id SMALLINT NOT NULL AUTO_INCREMENT,
     director_id SMALLINT NOT NULL,
     title VARCHAR(128) NOT NULL UNIQUE,
     year YEAR NOT NULL,
-    image_url VARCHAR(1000),
-    wiki VARCHAR(1000),
+    image_url VARCHAR(1000), DEFAULT $default_image,
+    wiki VARCHAR(1000), 
     PRIMARY KEY (id)
   )";
 

@@ -14,8 +14,8 @@ function create_table($conn, $table_name, $query){
 function insert_data($conn, $table_name, $params_array){
     switch($table_name){
         case "movies":
-            $stmt = $conn->prepare("INSERT INTO $table_name VALUES(NULL,?,?,?)");
-            $stmt->bind_param('iss',$params_array["director_id"], $params_array["title"], $params_array["year"]);
+            $stmt = $conn->prepare("INSERT INTO $table_name VALUES(NULL,?,?,?,?,?)");
+            $stmt->bind_param('issss',$params_array["director_id"], $params_array["title"], $params_array["year"], $params_array["image_url"], $params_array["wiki"]);
             break;
         case "directors":
             $stmt = $conn->prepare("INSERT INTO $table_name VALUES(NULL,?)");

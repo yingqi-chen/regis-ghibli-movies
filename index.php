@@ -37,53 +37,56 @@ include_once "header.php";
     <h3 class="mt-5 mb-3" >What movies do we have here already? 👀</h3>
     <div class="row">
         <?php
-         require_once 'db.php';
-         require_once 'functions.php';
-        $query = "SELECT * FROM movies";
-        $result = $conn->query($query);
-        if (!$result){
-            die("No result is available.");
-        }
-
-        $rows = $result->num_rows;
-
-
-        for($j = 0; $j < $rows; ++$j){
-            $row = $result->fetch_array(MYSQLI_ASSOC);
-            $director_id = mysql_entities_fix_string($conn, $row["director_id"]);
-            $id = mysql_entities_fix_string($conn, $row["id"]);
-        //    has to explicitly pass conn bc the scope is available outside of the grab_director_info session
-            $director = grab_director_info($conn, $director_id);
-            $title = mysql_entities_fix_string($conn, $row['title']);
-            $year = mysql_entities_fix_string($conn, $row["year"]);
-            $image = mysql_entities_fix_string($conn, $row["image"]);
-            $wiki = mysql_entities_fix_string($conn, $row["wiki"]);
-
-            if ($director){
-                $director_name = $director["director_name"];
-            }else{
-                $director_name = "unknown";
+            require_once 'db.php';
+            require_once 'functions.php';
+            $query = "SELECT * FROM movies";
+            $result = $conn->query($query);
+            if (!$result){
+                die("No result is available.");
             }
 
-            echo <<<_INFO
-             <div class="card col-lg-4 col-sm-6 my-2">
-                 <img class="card-img-top" src="$image" alt="$title">
-                 <div class="card-body">
-                     <h5 class="card-title">$title</h5>
-                     <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                 </div>
-                 <ul class="list-group list-group-flush">
-                     <li class="list-group-item">Director: $director_name </li>
-                     <li class="list-group-item">Year: $year  </li>
-                 </ul>
-                 <div class="card-body">
-                     <a href='/update.php?id=$id' class="card-link">Update</a>
-                     <a href='/delete.php?id=$id' class="card-link">Delete</a>
-_INFO;
-                echo ($wiki? ("<a href='$wiki' class='card-link'>Delete</a>"):NULL);
-                echo "</div></div>";
+            $rows = $result->num_rows;
 
-        }
+
+            for($j = 0; $j < $rows; ++$j){
+                $row = $result->fetch_array(MYSQLI_ASSOC);
+                $director_id = mysql_entities_fix_string($conn, $row["director_id"]);
+                $id = mysql_entities_fix_string($conn, $row["id"]);
+            //    has to explicitly pass conn bc the scope is available outside of the grab_director_info session
+                $director = grab_director_info($conn, $director_id);
+                $title = mysql_entities_fix_string($conn, $row['title']);
+                $year = mysql_entities_fix_string($conn, $row["year"]);
+                $image = mysql_entities_fix_string($conn, $row["image_url"]);
+                $wiki = mysql_entities_fix_string($conn, $row["wiki"]);
+
+                if ($director){
+                    $director_name = $director["director_name"];
+                }else{
+                    $director_name = "unknown";
+                }
+
+                if (empty($image)){
+                    $image = "https://prod3.agileticketing.net/images/user/fsc_2553/fs_my_neighbor_totoro_800.jpg";
+                }
+
+                echo <<<_INFO
+                 <div class="card col-lg-4 col-sm-6 my-2">
+                     <img class="card-img-top" src="$image" alt="$title">
+                     <div class="card-body">
+                         <h5 class="card-title">$title</h5>
+                     </div>
+                     <ul class="list-group list-group-flush">
+                         <li class="list-group-item">Director: $director_name </li>
+                         <li class="list-group-item">Year: $year  </li>
+                     </ul>
+                     <div class="card-body">
+                         <a href='/update.php?id=$id' class="card-link">Update</a>
+                         <a href='/delete.php?id=$id' class="card-link">Delete</a>
+_INFO;
+                    echo ($wiki? ("<a href='$wiki' class='card-link'>Delete</a>"):NULL);
+                    echo "</div></div>";
+
+            }
 
 ?>
     </div>

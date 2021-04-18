@@ -174,9 +174,24 @@ function validate_email($field)
     return "";
 }
 
+function query_user($conn, $email)
+{
+    $user_query = "SELECT * FROM users WHERE email = '$email'";
+    echo "$user_query \t";
+    $result = $conn->query($user_query);
+//    print_r($result);
+    if ($result->num_rows>0) {
+        $row = $result->fetch_array(MYSQLI_ASSOC);
+        print_r($row);
+    }else{
+        echo "wat";
+        echo "No result";
+    }
+}
+
 function login_user($conn, $email, $password){
 //    Check user exists or not
-    $user_exists = check_user_exists($conn, $email);
+    $user_exists = query_user($conn, $email);
     if ($user_exists){
 //        check the returned user's password hash match $password, if success, return the user, so FE can deal with it
 //          Go to index

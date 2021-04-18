@@ -10,6 +10,8 @@ if (isset($_POST['email'])) {
   $email = mysql_entities_fix_string($conn, $_POST['email']);
 }
 
+query_user($conn, 'chanwk18@hotmail.com');
+
 $fail = '';
 $fail .= validate_password($password);
 $fail .= validate_email($email);

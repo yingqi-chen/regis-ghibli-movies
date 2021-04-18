@@ -3,7 +3,6 @@ session_start();
 include_once "header.php";
 ?>
 
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -86,10 +85,10 @@ include_once "header.php";
                          <li class="list-group-item">Year: $year  </li>
                      </ul>
                      <div class="card-body">
-                         <a href='/update.php?id=$id' class="card-link">Update</a>
-                         <a href='/delete.php?id=$id' class="card-link">Delete</a>
+                         <a href='/update.php?id=$id' class="btn btn-outline-secondary card-link">Update</a>
+                         <a href='/delete.php?id=$id' class="btn btn-outline-secondary card-link">Delete</a>
 _INFO;
-                    echo ($wiki? ("<a href='$wiki' class='card-link'>Delete</a>"):NULL);
+                    echo ($wiki? ("<a href='$wiki' class='btn btn-outline-secondary card-link'>Wiki</a>"):NULL);
                     echo "</div></div>";
 
             }

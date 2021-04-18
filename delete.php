@@ -5,9 +5,6 @@ include_once "header.php";
 
 session_start();
 
-$param_id = mysql_entities_fix_string($conn, $_GET["id"]);
-
-
 if (isset($_POST['delete'])) {
     $id = $_POST['id'];
 
@@ -16,13 +13,16 @@ if (isset($_POST['delete'])) {
     }else{
         die("Try again, the id of the movie is not valid.");
     }
-
+}else{
+    $param_id = mysql_entities_fix_string($conn, $_GET["id"]);
+    $movie = query_movie($conn, $param_id);
+    $name = $movie['title'];
 }
 
 $conn->close();
 ?>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns="http://www.w3.org/1999/html">
 <head>
     <meta charset="UTF-8">
     <title>Ghibli Wiki</title>
@@ -32,7 +32,7 @@ $conn->close();
             margin: 6% auto ;
         }
         .button-wrapper{
-            width: 20%;
+            width: 30%;
             margin: 0 auto;
         }
     </style>
@@ -40,12 +40,13 @@ $conn->close();
 <body>
 <div class="wrapper w-50">
     <div class="container">
-        <h2 class="text-center my-5">Are you sure you want to delete?</h2>
+        <h2 class="text-center my-5">Are you sure you want to delete <?php echo $name ?>?</h2>
         <form action='delete.php' method='post'>
             <input type='hidden' name='delete' value='yes'>
             <input type='hidden' name='id' value="<?php echo $param_id; ?>">
-            <div class="button-wrapper">
-                <input type='submit' value='DELETE RECORD' class="btn btn-outline-danger btn-sm">
+            <div class="button-wrapper row gx-2">
+                <a href="index.php" class="col-5 btn btn-outline-primary btn-sm">Go Back</a>
+                <input type='submit' value='DELETE RECORD' class="col-5 btn btn-outline-danger btn-sm"/>
             </div>
         </form>
     </div>

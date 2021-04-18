@@ -20,26 +20,23 @@ $username = $_SESSION['username']
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                <li class="nav-item">
-                    <a href="create.php" class="btn btn-primary btn-secondary">Create a movie</a>
-                </li>
-            </ul>
+        <div class="collapse navbar-collapse d-flex" id="navbarSupportedContent">
+            <a href="create.php" class="btn btn-outline-secondary me-auto">Create a movie</a>
+            <div>
             <?php
                 if($username){
                     echo <<<_USERLOGGEDIN
-                    <span class='navbar-text'>Welcome Back $username </span>
-                    <a href='signout.php' class='btn btn-primary btn-secondary'>Log out</a>
+                    <span class='navbar-text'>Welcome Back $username! </span>
+                    <a href='signout.php' class='btn btn-outline-secondary col'>Log out</a>
 _USERLOGGEDIN;
                 }else{
                     echo <<<_USERNOTLOGGEDIN
-                        <a href="signup.php" class="btn btn-primary btn-secondary">Sign Up</a>
-                        <a href='signout.php' class='btn btn-primary btn-secondary'>Log In</a>
+                        <a href="signup.php" class="btn btn-outline-secondary">Sign Up</a>
+                        <a href='signout.php' class='btn btnoutline--secondary'>Log In</a>
 _USERNOTLOGGEDIN;
                 }
             ?>
-
+            </div>
         </div>
     </div>
 </nav>

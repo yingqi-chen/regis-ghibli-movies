@@ -39,13 +39,6 @@ include_once "header.php";
          require_once 'db.php';
          require_once 'functions.php';
          session_start();
-         print_r("$_SESSION");
-         $username = $_SESSION['username'];
-        if (isset($_SESSION['username'])){
-          echo $username;
-        } else{
-            echo "user is not here";
-        }
         $query = "SELECT * FROM movies";
         $result = $conn->query($query);
         if (!$result){

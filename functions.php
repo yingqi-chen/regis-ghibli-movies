@@ -176,16 +176,26 @@ function validate_email($field)
 
 function query_user($conn, $email)
 {
-    $user_query = "SELECT * FROM users WHERE email = '$email'";
-    echo "$user_query \t";
-    $result = $conn->query($user_query);
-//    print_r($result);
-    if ($result->num_rows>0) {
-        $row = $result->fetch_array(MYSQLI_ASSOC);
-        print_r($row);
+    $sql = "SELECT * FROM users WHERE email = ?";
+    $stmt = $conn->prepare($sql);
+
+    if (!$stmt){
+        header("location: signup.php?error=stmtfailed");
     }else{
-        echo "wat";
-        echo "No result";
+        $stmt->bind_param("s", $email);
+        if( !$stmt->execute()){
+            header("location: signup.php?error=executionfailed");
+        }
+    }
+
+    $result=$stmt->get_result();
+
+//    print_r($result);
+
+    if ($result->num_rows>0) {
+        return $result->fetch_array(MYSQLI_ASSOC);
+    }else{
+        header("location: signup.php?error=nouser");
     }
 }
 

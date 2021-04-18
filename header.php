@@ -27,7 +27,7 @@ $username = $_SESSION['username']
                 if($username){
                     echo <<<_USERLOGGEDIN
                     <span class='navbar-text'>Welcome Back $username! </span>
-                    <a href='signout.php' class='btn btn-outline-secondary col'>Log out</a>
+                    <a href='signout.php' class='btn btn-outline-secondary'>Log out</a>
 _USERLOGGEDIN;
                 }else{
                     echo <<<_USERNOTLOGGEDIN

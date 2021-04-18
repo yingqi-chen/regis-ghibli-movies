@@ -1,6 +1,9 @@
 <?php
 require_once 'db.php';
 require_once 'functions.php';
+include_once "header.php";
+
+session_start();
 
 $param_id = mysql_entities_fix_string($conn, $_GET["id"]);
 

@@ -1,4 +1,5 @@
 <?php
+session_start();
 include_once "header.php";
 ?>
 
@@ -38,7 +39,6 @@ include_once "header.php";
         <?php
          require_once 'db.php';
          require_once 'functions.php';
-         session_start();
         $query = "SELECT * FROM movies";
         $result = $conn->query($query);
         if (!$result){

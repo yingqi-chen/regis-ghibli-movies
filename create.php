@@ -1,6 +1,9 @@
 <?php
 require_once 'db.php';
 require_once 'functions.php';
+include_once "header.php";
+
+session_start();
 
 if (!empty($_POST['director_id'])   &&
     !empty($_POST['title'])    &&

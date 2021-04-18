@@ -201,14 +201,18 @@ function query_user($conn, $email)
 
 function login_user($conn, $email, $password){
 //    Check user exists or not
-    $user_exists = query_user($conn, $email);
-    if ($user_exists){
+    $user = query_user($conn, $email);
+    if ($user){
 //        check the returned user's password hash match $password, if success, return the user, so FE can deal with it
-//          Go to index
-    }else{
-//        go back login page with error in the GET
+       if(password_verify($password, $user['password'])){
+           session_start();
+           $_SESSION['username'] = $user['username'];
+           header("location: index.php");
+           exit();
+       } else{
+           header("location: signup.php?error=validationfailed");
+       }
     }
-
 }
 
 ?>

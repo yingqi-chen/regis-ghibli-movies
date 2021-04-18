@@ -27,13 +27,7 @@ function validateEmail(field)
     return ""
 }
 
-function test(form){
-    console.log("cool")
-    console.log(form.querySelectorAll("input")[0].value)
-    return false;
-}
-
-function validate(form){
+function validateSignUp(form){
     let fail = ""
     let allInputs = form.querySelectorAll("input")
     let username = allInputs[0].value
@@ -42,6 +36,23 @@ function validate(form){
 
 
     fail += validateUsername(username);
+    fail +=validatePassword(password);
+    fail +=validateEmail(email);
+
+    if(!fail.trim()){
+        return true
+    }else{
+        alert(fail)
+        return fail
+    }
+}
+
+function validateLogIn(form){
+    let fail = ""
+    let allInputs = form.querySelectorAll("input")
+    let email = allInputs[0].value
+    let password = allInputs[1].value
+
     fail +=validatePassword(password);
     fail +=validateEmail(email);
 

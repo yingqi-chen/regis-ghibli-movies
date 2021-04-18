@@ -20,10 +20,6 @@
 </head>
 <body>
 
-<?php
-print_r("$_GET");
-print_r("$_POST");
-?>
 <div class="wrapper w-50">
 <div class="container">
     <h1 class="text-center mb-5">Welcome to the Ghibli World!</h1>
@@ -37,7 +33,14 @@ print_r("$_POST");
         <?php
          require_once 'db.php';
          require_once 'functions.php';
-
+         session_start();
+         print_r("$_SESSION");
+         $username = $_SESSION['username'];
+        if (isset($_SESSION['username'])){
+          echo $username;
+        } else{
+            echo "user is not here";
+        }
         $query = "SELECT * FROM movies";
         $result = $conn->query($query);
         if (!$result){

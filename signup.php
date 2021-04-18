@@ -28,7 +28,7 @@
         <h2 class="text-center my-5">Sign up</h2>
         <p class="text-center h5 my-5">So you can start to create, update, delete movies for the website!</p>
         <div class="form-wrapper">
-            <form action="server_signup.php" method="post" onSubmit="return validate(this)">
+            <form action="server_signup.php" method="post" onSubmit="return validateSignUp(this)">
                 <label for="username" class="form-label">Username</label><br>
                 <input type="text" name="username"><br>
                 <label for="password" class="form-label">Password</label> <br>
@@ -43,13 +43,13 @@
         <h2 class="text-center my-5">Log In</h2>
         <p class="text-center h5 my-5">Log in to create and update movies that you like.</p>
         <div class="form-wrapper">
-            <form action="server_login.php.php" method="post" onSubmit="return validate(this)">
-                <label for="password" class="form-label">Password</label> <br>
-                <input type="password" name="password"><br>
+            <form action="server_login.php" method="post" onSubmit="return validateLogIn(this)">
                 <label for="email" class="form-label">Email</label> <br>
                 <input type="text" name="email"><br>
+                <label for="password" class="form-label">Password</label> <br>
+                <input type="password" name="password"><br>
                 <br>
-                <div class="button-middle"><input type="submit" value="Sign up" class="btn btn-outline-secondary btn-sm" ></div>
+                <div class="button-middle"><input type="submit" value="Log In" class="btn btn-outline-secondary btn-sm" ></div>
             </form>
             </form>
     </div>

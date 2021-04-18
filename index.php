@@ -22,6 +22,10 @@ include_once "header.php";
             height: 500px;
             width:100%; 
         }
+        .image{
+            height: 70%;
+            overflow: hidden;
+        }
     </style>
 </head>
 <body>
@@ -71,7 +75,9 @@ include_once "header.php";
 
                 echo <<<_INFO
                  <div class="card col-lg-4 col-sm-6 my-2">
+                 <div class="image">
                      <img class="card-img-top" src="$image" alt="$title">
+                 </div>
                      <div class="card-body">
                          <h5 class="card-title">$title</h5>
                      </div>

@@ -1,6 +1,17 @@
 <?php
 session_start();
+require_once 'db.php';
+require_once 'functions.php';
 include_once "header.php";
+
+$errorCode = mysql_entities_fix_string($conn, $_GET['error']);
+$error = "";
+
+switch ($errorCode){
+    case 'needauthentication':
+        $error = "Sorry, you need to have permission to do this. <br> Please sign up or log in first.";
+        break;
+}
 ?>
 
 <!DOCTYPE html>
@@ -31,6 +42,7 @@ include_once "header.php";
 
 <div class="wrapper w-50">
 <div class="container">
+    <h3 class="text-center" style="color: red"><?php echo $error?> </h3>
     <h1 class="text-center mb-5">Welcome to the Ghibli World!</h1>
     <h3 class="my-3">What is Ghibli studio? 👇</h3>
     <iframe 
@@ -40,8 +52,6 @@ include_once "header.php";
     <h3 class="mt-5 mb-3" >What movies do we have here already? 👀</h3>
     <div class="row">
         <?php
-            require_once 'db.php';
-            require_once 'functions.php';
             $query = "SELECT * FROM movies";
             $result = $conn->query($query);
             if (!$result){

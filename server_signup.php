@@ -34,9 +34,11 @@ if ($_POST['submit']){
             $_POST = array();
         }else{
             echo"<h3>> Insert failed.</h3><br>";
+            echo "<a href='signup.php'>Try to sign up again.</a>";
         }
     }else{
         echo "<h3>$fail</h3>";
+        echo "<a href='signup.php'>Try to sign up again.</a>";
     }
 }else{
     header("location: signup.php");

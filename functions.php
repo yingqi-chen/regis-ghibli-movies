@@ -180,11 +180,11 @@ function query_user($conn, $email)
     $stmt = $conn->prepare($sql);
 
     if (!$stmt){
-        header("location: signup.php?error=stmtfailed");
+        header("location: login.php?error=stmtfailed");
     }else{
         $stmt->bind_param("s", $email);
         if( !$stmt->execute()){
-            header("location: signup.php?error=executionfailed");
+            header("location: login.php?error=executionfailed");
         }
     }
 
@@ -195,7 +195,7 @@ function query_user($conn, $email)
     if ($result->num_rows>0) {
         return $result->fetch_array(MYSQLI_ASSOC);
     }else{
-        header("location: signup.php?error=nouser");
+        header("location: login.php?error=nouser");
     }
 }
 
@@ -210,7 +210,7 @@ function login_user($conn, $email, $password){
            header("location: index.php");
            exit();
        } else{
-           header("location: signup.php?error=validationfailed");
+           header("location: login.php?error=validationfailed");
        }
     }
 }

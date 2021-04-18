@@ -4,6 +4,10 @@ require_once 'functions.php';
 include_once "header.php";
 
 session_start();
+$username = $_SESSION['username'];
+if (!$username){
+    header("location: index.php?error=needauthentication");
+}
 
 if (!empty($_POST['director_id'])   &&
     !empty($_POST['title'])    &&

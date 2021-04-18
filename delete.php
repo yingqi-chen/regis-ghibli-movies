@@ -4,6 +4,11 @@ require_once 'functions.php';
 include_once "header.php";
 
 session_start();
+$username = $_SESSION['username'];
+if (!$username){
+    header("location: index.php?error=needauthentication");
+}
+
 
 if (isset($_POST['delete'])) {
     $id = $_POST['id'];

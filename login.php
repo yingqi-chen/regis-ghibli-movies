@@ -4,6 +4,20 @@ require_once 'functions.php';
 include_once "header.php";
 
 session_start();
+$errorCode = mysql_entities_fix_string($conn, $_GET['error']);
+$error = "";
+
+switch ($errorCode){
+    case 'stmtfailed'| 'executionfailed':
+        $error = "Sorry there are some problems when we execute this operation. <br> Please sign up or log in first.";
+        break;
+    case 'nouser':
+        $error = "User doesn't exist. Please try again.";
+        break;
+    case 'validationfailed':
+        $error = "User/Password pair doesn't exist. Please try again.";
+        break;
+}
 ?>
 
 <!DOCTYPE html>
@@ -31,6 +45,7 @@ session_start();
     <body>
         <div class="wrapper w-50">
             <div class="container">
+                <h3 class="text-center" style="color: red"><?php echo $error?> </h3>
                 <h2 class="text-center my-5">Log In</h2>
                 <p class="text-center h5 my-5">Log in to create and update movies that you like.</p>
                 <div class="form-wrapper">

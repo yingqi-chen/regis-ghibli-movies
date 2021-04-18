@@ -4,7 +4,11 @@ require_once 'functions.php';
 include_once "header.php";
 
 session_start();
+$username = $_SESSION['username'];
 
+if (!$username){
+    header("location: index.php?error=needauthentication");
+}
 
 if (!empty($_POST['director_id'])   &&
     !empty($_POST['title'])    &&
@@ -66,7 +70,7 @@ $conn -> close();
                     }
                     ?>
                 </select><br>
-                <label for="title" class="form-label" >Title</label> <br>
+                <label for="title" class="form-label">Title</label> <br>
                 <input type="text" name="title" value="<?php echo $display_title ?>" ><br>
                 <label for="year" class="form-label">Year</label> <br>
                 <input type="text" name="year" value="<?php echo $display_year ?>" ><br>

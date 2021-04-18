@@ -1,5 +1,6 @@
 <?php
 
+include_once 'header.php';
 require_once 'db.php';
 require_once 'functions.php';
 
@@ -18,7 +19,9 @@ if ($_POST['submit']){
     if ($fail == ""){
         $login_result = login_user($conn, $email, $password);
     }else{
-        echo "<h3>$fail</h3>";
+        echo "<h3>$fail</h3><br>";
+        echo "<a href='login.php'>Try to login again.</a>";
+
     }
 }else{
     header("location: login.php");

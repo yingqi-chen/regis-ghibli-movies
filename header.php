@@ -32,7 +32,7 @@ _USERLOGGEDIN;
                 }else{
                     echo <<<_USERNOTLOGGEDIN
                         <a href="signup.php" class="btn btn-outline-secondary">Sign Up</a>
-                        <a href='signout.php' class='btn btnoutline--secondary'>Log In</a>
+                        <a href='signout.php' class='btn btn-outline-secondary'>Log In</a>
 _USERNOTLOGGEDIN;
                 }
             ?>

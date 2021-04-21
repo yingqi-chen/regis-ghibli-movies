@@ -16,7 +16,15 @@ if (!empty($_POST['director_id'])   &&
     $title    = mysql_entities_fix_string($conn, $_POST['title']);
     $director_id   = mysql_entities_fix_string($conn, $_POST['director_id']);
     $year     = mysql_entities_fix_string($conn, $_POST['year']);
-    $movie_attributes = array("director_id"=>$director_id, "title" => $title,"year" => $year);
+    $wiki = mysql_entities_fix_string($conn, $_POST['wiki']);
+    $image_url = mysql_entities_fix_string($conn, $_POST['image_url']);
+    $movie_attributes = array(
+            "director_id"=>$director_id,
+            "title" => $title,
+            "year" => $year,
+            "wiki" => $wiki,
+            "image_url"=>$image_url
+    );
     $insert_result = insert_data($conn, "movies", $movie_attributes);
     if($insert_result){
         header("location: index.php");

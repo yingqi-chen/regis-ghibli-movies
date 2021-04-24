@@ -14,20 +14,7 @@ session_start();
     <meta charset="UTF-8">
     <title>Sign Up</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
-    <style type="text/css">
-        .wrapper{
-            margin: 6% auto ;
-        }
-        .form-wrapper{
-            width: 50%;
-            margin: 0 auto;
-            padding-left: 15%;
-        }
-        .button-middle{
-            width: 50%;
-            padding-left: 18%;
-        }
-    </style>
+    <link rel='stylesheet' href='style/styles.css'>
     <script src="validation.js"></script>
 </head>
 <body>
@@ -35,7 +22,7 @@ session_start();
     <div class="container">
         <h2 class="text-center my-5">Sign up</h2>
         <p class="text-center h5 my-5">So you can start to create, update, delete movies for the website!</p>
-        <div class="form-wrapper">
+        <div class="auth-form-wrapper">
             <form action="server_signup.php" method="post" onSubmit="return validateSignUp(this)">
                 <label for="username" class="form-label">Username</label><br>
                 <input type="text" name="username"><br>

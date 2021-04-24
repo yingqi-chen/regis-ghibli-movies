@@ -26,20 +26,7 @@ switch ($errorCode){
     <meta charset="UTF-8">
     <title>Sign Up</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
-    <style type="text/css">
-        .wrapper{
-            margin: 6% auto ;
-        }
-        .form-wrapper{
-            width: 50%;
-            margin: 0 auto;
-            padding-left: 15%;
-        }
-        .button-middle{
-            width: 50%;
-            padding-left: 18%;
-        }
-    </style>
+    <link rel='stylesheet' href='style/styles.css'>
     <script src="validation.js"></script>
 </head>
     <body>
@@ -48,7 +35,7 @@ switch ($errorCode){
                 <h3 class="text-center" style="color: red"><?php echo $error?> </h3>
                 <h2 class="text-center my-5">Log In</h2>
                 <p class="text-center h5 my-5">Log in to create and update movies that you like.</p>
-                <div class="form-wrapper">
+                <div class="auth-form-wrapper">
                     <form action="server_login.php" method="post" onSubmit="return validateLogIn(this)">
                         <label for="email" class="form-label">Email</label> <br>
                         <input type="text" name="email"><br>

@@ -1,5 +1,6 @@
 <?php
 
+include_once 'header.php';
 require_once 'db.php';
 require_once 'functions.php';
 
@@ -19,6 +20,8 @@ if ($_POST['submit']){
     $fail .= validate_password($password);
     $fail .= validate_email($email);
 
+    $redirect_path = "signup.php";
+
 
     if ($fail == ""){
         $hash     = password_hash($password, PASSWORD_DEFAULT);
@@ -27,8 +30,11 @@ if ($_POST['submit']){
             "email" => $email,
             "password" => $hash
         );
+        $user_exists = query_user($conn, $email, $redirect_path);
+        if($user_exists){
+            header("location: $redirect_path?error=userexisted");
+        }
         $insert_result = insert_data($conn, "users", $user_attributes);
-        print_r($insert_result);
         if($insert_result){
             header("location: login.php");
             $_POST = array();
@@ -37,8 +43,12 @@ if ($_POST['submit']){
             echo "<a href='signup.php'>Try to sign up again.</a>";
         }
     }else{
-        echo "<h3>$fail</h3>";
-        echo "<a href='signup.php'>Try to sign up again.</a>";
+        echo <<<_ERRORDISPLAY
+        <div class="text-center my-3">
+            <h3>$fail</h3>
+            <a class="btn btn-danger" href='signup.php'>Try to sign up again.</a>
+        </div>
+_ERRORDISPLAY;
     }
 }else{
     header("location: signup.php");

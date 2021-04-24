@@ -19,9 +19,12 @@ if ($_POST['submit']){
     if ($fail == ""){
         $login_result = login_user($conn, $email, $password);
     }else{
-        echo "<h3>$fail</h3><br>";
-        echo "<a href='login.php'>Try to login again.</a>";
-
+        echo <<<_ERRORDISPLAY
+        <div class="text-center my-3">
+            <h3>$fail</h3>
+            <a class="btn btn-danger" href='login.php'>Try to sign up again.</a>
+        </div>
+_ERRORDISPLAY;
     }
 }else{
     header("location: login.php");

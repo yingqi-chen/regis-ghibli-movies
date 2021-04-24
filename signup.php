@@ -4,8 +4,9 @@ require_once 'functions.php';
 include_once "header.php";
 
 session_start();
+$errorCode = mysql_entities_fix_string($conn, $_GET['error']);
+$error = interpretErrorCode($errorCode);
 
-//check errors and handle it here
 ?>
 
 <!DOCTYPE html>
@@ -20,6 +21,7 @@ session_start();
 <body>
 <div class="wrapper w-50">
     <div class="container">
+        <h3 class="text-center" style="color: red"><?php echo $error?> </h3>
         <h2 class="text-center my-5">Sign up</h2>
         <p class="text-center h5 my-5">So you can start to create, update, delete movies for the website!</p>
         <div class="auth-form-wrapper">

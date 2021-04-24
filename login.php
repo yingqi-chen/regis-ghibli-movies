@@ -5,19 +5,8 @@ include_once "header.php";
 
 session_start();
 $errorCode = mysql_entities_fix_string($conn, $_GET['error']);
-$error = "";
+$error = interpretErrorCode($errorCode);
 
-switch ($errorCode){
-    case 'stmtfailed'| 'executionfailed':
-        $error = "Sorry there are some problems when we execute this operation. <br> Please sign up or log in first.";
-        break;
-    case 'nouser':
-        $error = "User doesn't exist. Please try again.";
-        break;
-    case 'validationfailed':
-        $error = "User/Password pair doesn't exist. Please try again.";
-        break;
-}
 ?>
 
 <!DOCTYPE html>

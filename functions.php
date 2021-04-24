@@ -174,23 +174,21 @@ function validate_email($field)
     return "";
 }
 
-function query_user($conn, $email)
+function query_user($conn, $email, $path)
 {
     $sql = "SELECT * FROM users WHERE email = ?";
     $stmt = $conn->prepare($sql);
 
     if (!$stmt){
-        header("location: login.php?error=stmtfailed");
+        header("location: $path?error=stmtfailed");
     }else{
         $stmt->bind_param("s", $email);
         if( !$stmt->execute()){
-            header("location: login.php?error=executionfailed");
+            header("location: $path?error=executionfailed");
         }
     }
 
     $result=$stmt->get_result();
-
-//    print_r($result);
 
     if ($result->num_rows>0) {
         return $result->fetch_array(MYSQLI_ASSOC);
@@ -201,7 +199,7 @@ function query_user($conn, $email)
 
 function login_user($conn, $email, $password){
 //    Check user exists or not
-    $user = query_user($conn, $email);
+    $user = query_user($conn, $email, "login.php");
     if ($user){
 //        check the returned user's password hash match $password, if success, return the user, so FE can deal with it
        if(password_verify($password, $user['password'])){
@@ -229,6 +227,23 @@ function grab_director_info($conn, $director_id){
     }
     $result->close();
     $conn->close();
+}
+
+function interpretErrorCode($errorCode){
+    switch ($errorCode){
+        case 'stmtfailed'| 'executionfailed':
+            return "Sorry there are some problems when we execute this operation. <br> Please sign up or log in first.";
+            break;
+        case 'nouser':
+            return "User doesn't exist. Please try again.";
+            break;
+        case 'validationfailed':
+            return "User/Password pair doesn't exist. Please try again.";
+            break;
+        case 'userexisted':
+            return "The email is occupied. Please try again.";
+            break;
+    }
 }
 
 

@@ -24,10 +24,7 @@ switch ($errorCode){
         .wrapper{
             margin: 6% auto ;
         }
-        .button-wrapper{
-            height: 25%;
-            width: 100%;
-        }
+
         #ghibli-video{
             height: 500px;
             width:100%; 
@@ -50,6 +47,16 @@ switch ($errorCode){
         src="https://www.youtube.com/embed/ABrmmsJWfzk" 
         title="ghibli-video-intro" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
     <h3 class="mt-5 mb-3" >What movies do we have here already? 👀</h3>
+    <div class="dropdown d-flex justify-content-end mb-3">
+        <button class="btn btn-outline-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            columns per row
+        </button>
+        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+            <button id="haha" class="dropdown-item">2</button>
+            <button class="dropdown-item">3</button>
+            <button class="dropdown-item">4</button>
+        </div>
+    </div>
     <div class="row">
         <?php
             $query = "SELECT * FROM movies";
@@ -108,7 +115,14 @@ _INFO;
     <a href='/create.php' class='my-3 btn btn-primary'>Click me to create new movie!</a>
   </div>
 </div>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js" integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+<script>
+    $('.dropdown-item').click(function(){
+        alert(this.innerHTML);
+    })
+    $('#haha').css('color', "red")
+</script>
 </body>
 </html>
-

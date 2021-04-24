@@ -22,7 +22,7 @@ if ($_POST['submit']){
         echo <<<_ERRORDISPLAY
         <div class="text-center my-3">
             <h3>$fail</h3>
-            <a class="btn btn-danger" href='login.php'>Try to sign up again.</a>
+            <a class="btn btn-danger" href='login.php'>Try to log in again.</a>
         </div>
 _ERRORDISPLAY;
     }

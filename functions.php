@@ -231,18 +231,16 @@ function grab_director_info($conn, $director_id){
 
 function interpretErrorCode($errorCode){
     switch ($errorCode){
-        case 'stmtfailed'| 'executionfailed':
+        case 'stmtfailed'| 'executionfailed' | 'needauthentication':
             return "Sorry there are some problems when we execute this operation. <br> Please sign up or log in first.";
-            break;
         case 'nouser':
             return "User doesn't exist. Please try again.";
-            break;
         case 'validationfailed':
             return "User/Password pair doesn't exist. Please try again.";
-            break;
         case 'userexisted':
             return "The email is occupied. Please try again.";
-            break;
+        case 'userLoggedIn':
+            return "You are already logged in.";
     }
 }
 

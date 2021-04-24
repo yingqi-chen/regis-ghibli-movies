@@ -5,13 +5,7 @@ require_once 'functions.php';
 include_once "header.php";
 
 $errorCode = mysql_entities_fix_string($conn, $_GET['error']);
-$error = "";
-
-switch ($errorCode){
-    case 'needauthentication':
-        $error = "Sorry, you need to have permission to do this. <br> Please sign up or log in first.";
-        break;
-}
+$error = interpretErrorCode($errorCode);
 ?>
 
 <!DOCTYPE html>
@@ -49,7 +43,7 @@ switch ($errorCode){
             <button class="dropdown-item">4</button>
         </div>
     </div>
-
+    <!--    Movie Block -->
     <div class="row">
     <?php include_once 'helpers/movie.php'?>
     </div>

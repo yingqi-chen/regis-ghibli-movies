@@ -4,6 +4,10 @@ require_once 'functions.php';
 include_once "header.php";
 
 session_start();
+$username = $_SESSION['username'];
+if ($username){
+    header("location: index.php?error=userLoggedIn");
+}
 $errorCode = mysql_entities_fix_string($conn, $_GET['error']);
 $error = interpretErrorCode($errorCode);
 

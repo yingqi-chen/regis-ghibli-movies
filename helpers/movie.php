@@ -31,19 +31,20 @@ for($j = 0; $j < $rows; ++$j){
 
     echo <<<_INFO
                  <div class="card col-lg-4 col-sm-6 my-2">
-                 <div class="image">
-                     <img class="card-img-top" src="$image" alt="$title">
-                 </div>
+                     <div class="image">
+                         <img class="card-img-top" src="$image" alt="$title">
+                     </div>
                      <div class="card-body">
                          <h5 class="card-title">$title</h5>
                      </div>
-                     <ul class="list-group list-group-flush">
-                         <li class="list-group-item">Director: $director_name </li>
-                         <li class="list-group-item">Year: $year  </li>
-                     </ul>
-                     <div class="card-body">
+                         <ul class="list-group list-group-flush">
+                            <li class="list-group-item">Director: $director_name </li>
+                             <li class="list-group-item">Year: $year  </li>
+                         </ul>
+                         <div class="card-body">
                          <a href='/update.php?id=$id' class="btn btn-outline-secondary card-link">Update</a>
-                         <a href='/delete.php?id=$id' class="btn btn-outline-secondary card-link">Delete</a>
+                         <button class="delete btn btn-outline-secondary card-link" value="$id">Delete</button>
+
 _INFO;
     echo ($wiki? ("<a href='$wiki' class='btn btn-outline-secondary card-link'>Wiki</a>"):NULL);
     echo "</div></div>";
@@ -51,3 +52,5 @@ _INFO;
 }
 
 ?>
+
+<!--//                         <a href='/delete.php?id=$id' class="delete btn btn-outline-secondary card-link">Delete</a>-->

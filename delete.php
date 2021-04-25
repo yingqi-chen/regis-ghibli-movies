@@ -1,60 +1,89 @@
 <?php
+//require_once 'db.php';
+//require_once 'functions.php';
+//include_once "header.php";
+//
+//session_start();
+//$username = $_SESSION['username'];
+//if (!$username){
+//    header("location: index.php?error=needauthentication");
+//    return ("You are not allowed to do this operation");
+//}
+//
+//
+//if (isset($_POST['delete'])) {
+//    $id = $_POST['id'];
+//
+//    if (!empty($id)) {
+//      return ("The id I got is: $id");
+//    }else{
+//      return ("Try again, the id of the movie is not valid.");
+//    }
+//}else{
+//    $param_id = mysql_entities_fix_string($conn, $_GET["id"]);
+//    $movie = query_movie($conn, $param_id);
+//    $name = $movie['title'];
+//}
+//
+//return json_encode(array("message" => "testing"));
+//
+//$conn->close();
+//?>
+
+
+<?php
+// Headers that allows being queried from everywhere, receiving json, post method
+header('Access-Control-Allow-Origin: *');
+header('Content-Type: application/json');
+header('Access-Control-Allow-Methods: DELETE');
+header('Access-Control-Allow-Headers: Access-Control-Allow-Headers,Content-Type,Access-Control-Allow-Methods, Authorization, X-Requested-With');
+
 require_once 'db.php';
 require_once 'functions.php';
-include_once "header.php";
 
-session_start();
-$username = $_SESSION['username'];
-if (!$username){
-    header("location: index.php?error=needauthentication");
+// Get raw posted data
+$data = json_decode(file_get_contents("php://input"));
+$id = $data->id;
+
+// Delete post
+
+if (!empty($id)) {
+    $result = delete_movie($conn, 15);
+    if($result){
+        if (mysqli_affected_rows($conn) > 0){
+            echo json_encode(
+                array("message"=>"Deleted Successfully!")
+            );
+        };
+        echo json_encode(array("error_message" =>"Movie doesn't exist \n", "error"=>"Delete failed"));
+    } else{
+        echo json_encode(array("error_message" =>"errorsssss \n", "error"=>"Delete failed"));
+    }}else{
+    echo json_encode(array("error_message" =>"2 errorsssss \n", "error"=>"Delete failed"));
+
 }
 
+//    if($result){
+//        echo json_encode(
+//            array("message"=>"Deleted Successfully!")
+//        );
+//    }else{
+//        echo json_encode(
+//            array("error"=>"Delete failed")
+//        );
+//    }
+//}else{
+//    echo json_encode(array("error"=>"id is not valid."));
+//}
 
-if (isset($_POST['delete'])) {
-    $id = $_POST['id'];
 
-    if (!empty($id)) {
-      delete_movie($conn, $id);
-    }else{
-        die("Try again, the id of the movie is not valid.");
-    }
-}else{
-    $param_id = mysql_entities_fix_string($conn, $_GET["id"]);
-    $movie = query_movie($conn, $param_id);
-    $name = $movie['title'];
-}
+//else{
+//    $param_id = mysql_entities_fix_string($conn, $_GET["id"]);
+//    $movie = query_movie($conn, $param_id);
+//    $name = $movie['title'];
+//}
 
-$conn->close();
-?>
-<!DOCTYPE html>
-<html lang="en" xmlns="http://www.w3.org/1999/html">
-<head>
-    <meta charset="UTF-8">
-    <title>Ghibli Wiki</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
-    <style type="text/css">
-        .wrapper{
-            margin: 6% auto ;
-        }
-        .button-wrapper{
-            width: 30%;
-            margin: 0 auto;
-        }
-    </style>
-</head>
-<body>
-<div class="wrapper w-50">
-    <div class="container">
-        <h2 class="text-center my-5">Are you sure you want to delete <?php echo $name ?>?</h2>
-        <form action='delete.php' method='post'>
-            <input type='hidden' name='delete' value='yes'>
-            <input type='hidden' name='id' value="<?php echo $param_id; ?>">
-            <div class="button-wrapper row gx-2">
-                <a href="index.php" class="col-5 btn btn-outline-primary btn-sm">Go Back</a>
-                <input type='submit' value='DELETE RECORD' class="col-5 btn btn-outline-danger btn-sm"/>
-            </div>
-        </form>
-    </div>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js" integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf" crossorigin="anonymous"></script>
-</body>
-</html>
+
+
+
+

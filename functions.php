@@ -130,12 +130,7 @@ function delete_movie($conn, $param_id){
 
     $stmt->bind_param("i", $param_id);
 
-    if($stmt->execute()){
-        header("location: index.php");
-        exit();
-    } else{
-        echo "DELETE failed";
-    }
+    return $stmt->execute();
 }
 
 function mysql_entities_fix_string($conn, $string)

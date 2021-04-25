@@ -25,6 +25,6 @@ function handleSuccess(result){
 
 function removeCard(card){
     console.log(card)
-    card.parentNode.removeChild(card);
+    card.remove();
     alert("Successfully deleted!")
 }

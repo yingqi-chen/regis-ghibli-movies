@@ -30,7 +30,7 @@ for($j = 0; $j < $rows; ++$j){
     }
 
     echo <<<_INFO
-                 <div class="card col-lg-4 col-sm-6 my-2">
+                 <div class="card col-sm-6 col-lg-4 my-2 movie">
                      <div class="image">
                          <img class="card-img-top" src="$image" alt="$title">
                      </div>

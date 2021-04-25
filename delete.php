@@ -14,20 +14,13 @@ $id = $data->id;
 
 // Delete post
 if (!empty($id)) {
-    $result = delete_movie($conn, 15);
-    if($result){
-        if (mysqli_affected_rows($conn) > 0){
+    if(delete_movie($conn, $id)){
             echo json_encode(
                 array("message"=>"Deleted Successfully!")
             );
-        };
-        echo json_encode(array("error"=>"Delete failed", "error_message" =>"Movie doesn't exist" ));
-    } else{
-        echo json_encode(array("error"=>"Delete failed","error_message" =>"Failed due to unexpected error."));
-        header('HTTP/1.1 500 Internal Server Error');
-    }}else{
+            }
+    }else{
     echo json_encode(array("error"=>"Delete failed","error_message" =>"ID is not valid"));
-
 }
 
 

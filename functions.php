@@ -130,7 +130,17 @@ function delete_movie($conn, $param_id){
 
     $stmt->bind_param("i", $param_id);
 
-    return $stmt->execute();
+    if($stmt->execute()){
+        if (mysqli_affected_rows($conn) > 0){
+            return true;
+        }else{
+            echo json_encode(array("error_message" =>"Movie doesn't exist \n"));
+            return false;
+        }
+    } else{
+        printf("Error: %s.\n", $stmt->error);
+        return false;
+    }
 }
 
 function mysql_entities_fix_string($conn, $string)

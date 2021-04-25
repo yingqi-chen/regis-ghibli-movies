@@ -20,7 +20,7 @@ if (!empty($id)) {
             );
             }
     }else{
-    echo json_encode(array("error"=>"Delete failed","error_message" =>"ID is not valid"));
+    echo json_encode(array("errorMessage" =>"ID is not valid"));
 }
 
 

@@ -134,11 +134,11 @@ function delete_movie($conn, $param_id){
         if (mysqli_affected_rows($conn) > 0){
             return true;
         }else{
-            echo json_encode(array("error_message" =>"Movie doesn't exist \n"));
+            echo json_encode(array("errorMessage" =>"Movie doesn't exist"));
             return false;
         }
     } else{
-        printf("Error: %s.\n", $stmt->error);
+        echo json_encode(array("errorMessage" =>"Error: %s.\n", $stmt->error));
         return false;
     }
 }

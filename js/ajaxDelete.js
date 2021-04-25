@@ -6,14 +6,25 @@ $('.delete').click(function (){
             method:"DELETE",
             data: JSON.stringify({"id": this.value}),
             ContentType:"application/json",
-            success: function (result) {
-                console.log(result)
-            }
-        }).then(alert("deleted"));
-        //ajax
-        //alert
-        //remove element, remove the parent
+            success: handleSuccess.bind(this)
+        });
     }else{
         alert("You didn't delete this movie.")
     }
 })
+
+function handleSuccess(result){
+    if(result.errorMessage){
+        alert(`Failed to delete because: ${result.errorMessage}` )
+    }else if(result.message){
+        removeCard(this.closest('.card'))
+    }else{
+        alert("It didn't succeed.Try again later!")
+    }
+}
+
+function removeCard(card){
+    console.log(card)
+    card.parentNode.removeChild(card);
+    alert("Successfully deleted!")
+}

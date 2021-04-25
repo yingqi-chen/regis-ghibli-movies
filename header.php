@@ -35,7 +35,7 @@ $username = $_SESSION['username'];
             <?php
                 if($username){
                     echo <<<_USERLOGGEDIN
-                    <span class='navbar-text'>Welcome Back $username! </span>
+                    <span class='navbar-text'>Welcome back $username! </span>
                     <a href='signout.php' class='btn btn-outline-secondary'>Log out</a>
 _USERLOGGEDIN;
                 }else{

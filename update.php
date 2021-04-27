@@ -19,7 +19,11 @@ if (!empty($_POST['director_id'])   &&
     $director_id = mysql_entities_fix_string($conn, $_POST['director_id']);
     $year = mysql_entities_fix_string($conn, $_POST['year']);
     $id = mysql_entities_fix_string($conn, $_POST['id']);
-    $movie_attributes = array("director_id" => $director_id, "title" => $title, "year" => $year, "id" => $id);
+    $wiki = mysql_entities_fix_string($conn, $_POST['wiki']);
+    $image_url = mysql_entities_fix_string($conn, $_POST['image_url']);
+
+    $movie_attributes = array("director_id" => $director_id, "title" => $title, "year" => $year, "id" => $id, "wiki"=>$wiki, "image_url" => $image_url);
+
     $update_result = update_data($conn, "movies", $movie_attributes);
     if($update_result){
         header("location: index.php");
@@ -34,7 +38,8 @@ $param_id = mysql_entities_fix_string($conn, $_GET["id"]);
 $movie = query_movie($conn, $param_id);
 $display_title = $movie['title'];
 $display_year = $movie['year'];
-
+$display_wiki = $movie['wiki'];
+$display_image = $movie['image_url'];
 $conn -> close();
 ?>
 
@@ -67,6 +72,10 @@ $conn -> close();
                 <label for="year" class="form-label">Year</label> <br>
                 <input type="text" name="year" value="<?php echo $display_year ?>" ><br>
                 <input type='hidden' name='id' value='<?php echo $param_id ?>'>
+                <label for="wiki" class="form-label" >Wiki(optional)</label> <br>
+                <input size="80%" type="text" name="wiki" value="<?php echo $display_wiki ?>"><br>
+                <label for="image_url" class="form-label">Image(optional)</label> <br>
+                <input size="80%" type="text" name="image_url" value="<?php echo $display_image ?>" ><br>
                 <br>
                 <input type="submit" value="UPDATE RECORD" class="btn btn-outline-secondary btn-sm">
             </form>

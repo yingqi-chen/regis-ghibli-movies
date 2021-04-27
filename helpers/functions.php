@@ -31,23 +31,13 @@ function insert_data($conn, $table_name, $params_array){
 
     return $stmt->execute();
 
-//
-//    if($stmt->execute()){
-//       echo "Success for inserting data into $table_name <br>";
-//     } else{
-//       echo "Something went wrong. $conn->error Please try again later. <br>";
-//     }
-//
-//
-//    $stmt->close();
-
  }
 
 function update_data($conn, $table_name, $params_array){
     switch($table_name){
         case "movies":
-            $stmt = $conn->prepare("UPDATE $table_name SET director_id=?, title=?, year=? WHERE id=?");
-            $stmt->bind_param('issi',$params_array["director_id"], $params_array["title"], $params_array["year"],$params_array["id"] );
+            $stmt = $conn->prepare("UPDATE $table_name SET director_id=?, title=?, year=?, wiki=?, image_url=? WHERE id=?");
+            $stmt->bind_param('issssi',$params_array["director_id"], $params_array["title"], $params_array["year"],$params_array["wiki"], $params_array["image_url"], $params_array["id"] );
             break;
         case "users":
             $stmt = $conn->prepare("INSERT INTO $table_name VALUES(?,?)");
@@ -118,8 +108,11 @@ function query_movie($conn, $id)
         "movie_id" => $row["id"],
         "title" => $row["title"],
         "director_id"=>$row["director_id"],
-        "year" => $row["year"]
+        "year" => $row["year"],
+        "wiki" => $row["wiki"],
+        "image_url" => $row["image_url"]
     );
+
     return $movie;
 }
 
@@ -236,8 +229,13 @@ function grab_director_info($conn, $director_id){
 
 function interpretErrorCode($errorCode){
     switch ($errorCode){
-        case 'stmtfailed'| 'executionfailed' | 'needauthentication':
+
+        case 'stmtfailed'| 'executionfailed':
+            echo "wat";
             return "Sorry there are some problems when we execute this operation. <br> Please sign up or log in first.";
+
+        case 'needauthentication':
+            return "Sorry there are some problems when we execute this operation. <br> Please <a href='/signup.php'>sign up</a> or <a href='/login.php'>log in</a>  first.";
         case 'nouser':
             return "User doesn't exist. Please try again.";
         case 'validationfailed':

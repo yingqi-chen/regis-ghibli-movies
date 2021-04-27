@@ -69,9 +69,9 @@ $conn -> close();
                 <label for="year" class="form-label">Year</label> <br>
                 <input type="text" name="year"><br>
                 <label for="wiki" class="form-label">Wiki(optional)</label> <br>
-                <input type="text" name="wiki"><br>
+                <input type="text" name="wiki" size="80%"><br>
                 <label for="image_url" class="form-label">Image(optional)</label> <br>
-                <input type="text" name="image_url" ><br>
+                <input type="text" name="image_url" size="80%" ><br>
                 <br>
                  <input type="submit" value="ADD RECORD" class="btn btn-outline-secondary btn-sm">
             </form>

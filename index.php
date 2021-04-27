@@ -2,9 +2,9 @@
 session_start();
 $username = $_SESSION['username'];
 
-require_once 'db.php';
-require_once 'functions.php';
-include_once "header.php";
+require_once 'config/db.php';
+require_once 'helpers/functions.php';
+include_once 'helpers/header.php';
 
 $errorCode = mysql_entities_fix_string($conn, $_GET['error']);
 $error = interpretErrorCode($errorCode);
@@ -26,9 +26,9 @@ $error = interpretErrorCode($errorCode);
     <h1 class="text-center mb-5">Welcome to the Ghibli World!</h1>
 <!--    The intro video block -->
     <h3 class="my-3">What is Ghibli studio? 👇</h3>
-    <iframe 
+    <iframe
         id="ghibli-video"
-        src="https://www.youtube.com/embed/ABrmmsJWfzk" 
+        src="https://www.youtube.com/embed/ABrmmsJWfzk"
         title="ghibli-video-intro" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 <!--    The movies block -->

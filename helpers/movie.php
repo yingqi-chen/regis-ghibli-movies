@@ -53,4 +53,3 @@ _INFO;
 
 ?>
 
-<!--//                         <a href='/delete.php?id=$id' class="delete btn btn-outline-secondary card-link">Delete</a>-->

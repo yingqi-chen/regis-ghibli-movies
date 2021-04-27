@@ -1,6 +1,6 @@
 <?php
 
-require_once 'db.php';
+require_once 'config/db.php';
 
 function create_table($conn, $table_name, $query){
     $result = $conn->query($query);

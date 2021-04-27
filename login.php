@@ -1,7 +1,8 @@
 <?php
-require_once 'db.php';
-require_once 'functions.php';
-include_once "header.php";
+require_once 'config/db.php';
+require_once 'helpers/functions.php';
+include_once 'helpers/header.php';
+
 
 session_start();
 

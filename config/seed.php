@@ -2,7 +2,7 @@
 
 <?php
   require_once 'db.php';
-  require_once 'functions.php';
+  require_once '../helpers/functions.php';
 
   $create_movies_table_query = "CREATE TABLE IF NOT EXISTS movies (
     id SMALLINT NOT NULL AUTO_INCREMENT,

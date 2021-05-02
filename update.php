@@ -1,27 +1,17 @@
 <?php
+session_start();
+
 require_once 'config/db.php';
 require_once 'helpers/functions.php';
 include_once 'helpers/header.php';
-
-session_start();
-$username = $_SESSION['username'];
-
-if (!$username){
-    header("location: index.php?error=needauthentication");
-}
-
-$errorCode = mysql_entities_fix_string($conn, $_GET['error']);
-$error = interpretErrorCode($errorCode);
-
+include_once 'helpers/check_authorized.php';
+include_once 'helpers/read_errors.php';
 
 if ($_SERVER["REQUEST_METHOD"] == "GET"){
     $param_id = mysql_entities_fix_string($conn, $_GET["id"]);
     $director_list = query_directors($conn);
     $movie = query_movie($conn, $param_id);
-    $display_title = $movie['title'];
-    $display_year = $movie['year'];
-    $display_wiki = $movie['wiki'];
-    $display_image = $movie['image_url'];
+    extract($movie);
     $conn -> close();
 }
 
@@ -31,31 +21,33 @@ if (!empty($_POST['director_id'])   &&
     !empty($_POST['year'])    &&
     !empty($_POST['id']))
 {
-    $title    = mysql_entities_fix_string($conn, $_POST['title']);
+    $title       = mysql_entities_fix_string($conn, $_POST['title']);
     $director_id = mysql_entities_fix_string($conn, $_POST['director_id']);
-    $year = mysql_entities_fix_string($conn, $_POST['year']);
-    $id = mysql_entities_fix_string($conn, $_POST['id']);
-    $wiki = mysql_entities_fix_string($conn, $_POST['wiki']);
-    $image_url = mysql_entities_fix_string($conn, $_POST['image_url']);
+    $year        = mysql_entities_fix_string($conn, $_POST['year']);
+    $id          = mysql_entities_fix_string($conn, $_POST['id']);
+    $wiki        = mysql_entities_fix_string($conn, $_POST['wiki']);
+    $image_url   = mysql_entities_fix_string($conn, $_POST['image_url']);
 
-    $valid_wiki = validateURL($wiki);
-    $valid_image = validateURL($image_url);
 
-if ($valid_image && $valid_wiki ) {
-    $valid_wiki = validateURL($wiki);
-    $valid_image = validateURL($image_url);
+    if (check_url_for_wiki_and_image($wiki,$image_url)) {
+        $movie_attributes = array(
+                "director_id" => $director_id,
+                "title" => $title,
+                "year" => $year,
+                "id" => $id,
+                "wiki"=>$wiki,
+                "image_url" => $image_url);
 
-    $movie_attributes = array("director_id" => $director_id, "title" => $title, "year" => $year, "id" => $id, "wiki"=>$wiki, "image_url" => $image_url);
+        $update_result = update_data($conn, "movies", $movie_attributes);
 
-    $update_result = update_data($conn, "movies", $movie_attributes);
-    if($update_result){
-        header("location: index.php");
-        $_POST = array();
-    }else{
-        echo "Something went wrong. $conn->error Please try again later. <br>";
+        if($update_result){
+            header("location: index.php");
+            $_POST = array();
+        }else{
+            echo "Something went wrong. $conn->error Please try again later. <br>";
     }}else{
     header("location: update.php?id=$id&error=notvalidurl");
-}
+    }
 }elseif($_SERVER["REQUEST_METHOD"] == "POST"){
     $id = mysql_entities_fix_string($conn, $_POST['id']);
     header("location: update.php?id=$id&error=emptyrequirefield");
@@ -73,8 +65,7 @@ if ($valid_image && $valid_wiki ) {
 <body>
 <div class="wrapper w-50">
     <div class="container">
-        <h3 class="text-center" style="color: red"><?php echo $error?> </h3>
-        <h2 class="text-center my-5">Update movie <?php echo "$display_title here"?></h2>
+        <h2 class="text-center my-5">Update movie <?php echo "$title here"?></h2>
         <div class="form-wrapper">
             <form action="update.php" method="post">
                 <label for="director_id" class="form-label">Director</label>
@@ -88,14 +79,14 @@ if ($valid_image && $valid_wiki ) {
                     ?>
                 </select><br>
                 <label for="title" class="form-label">Title</label> <br>
-                <input type="text" name="title" value="<?php echo $display_title ?>" ><br>
+                <input type="text" name="title" value="<?php echo $title ?>" ><br>
                 <label for="year" class="form-label">Year</label> <br>
-                <input type="text" name="year" value="<?php echo $display_year ?>" ><br>
+                <input type="text" name="year" value="<?php echo $year ?>" ><br>
                 <input type='hidden' name='id' value='<?php echo $param_id ?>'>
                 <label for="wiki" class="form-label" >Wiki(optional)</label> <br>
-                <input size="80%" type="text" name="wiki" value="<?php echo $display_wiki ?>"><br>
+                <input size="80%" type="text" name="wiki" value="<?php echo $wiki ?>"><br>
                 <label for="image_url" class="form-label">Image(optional)</label> <br>
-                <input size="80%" type="text" name="image_url" value="<?php echo $display_image ?>" ><br>
+                <input size="80%" type="text" name="image_url" value="<?php echo $image_url ?>" ><br>
                 <br>
                 <input type="submit" value="UPDATE RECORD" class="btn btn-outline-secondary btn-sm">
             </form>

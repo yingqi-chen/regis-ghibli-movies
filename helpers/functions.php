@@ -251,11 +251,17 @@ function interpretErrorCode($errorCode){
     }
 }
 
-function validateURL($url){
+function validate_URL($url){
     if ($url && (!filter_var($url, FILTER_VALIDATE_URL, FILTER_FLAG_HOST_REQUIRED))) {
         return false;
     }
     return true;
+}
+
+function check_url_for_wiki_and_image($wiki,$image_url){
+    if (validate_URL($wiki)&& validate_URL($image_url)){
+        return true;
+    };
 }
 
 

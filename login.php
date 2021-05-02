@@ -1,18 +1,11 @@
 <?php
+session_start();
+
 require_once 'config/db.php';
 require_once 'helpers/functions.php';
 include_once 'helpers/header.php';
-
-
-session_start();
-
-$username = $_SESSION['username'];
-if ($username){
-    header("location: index.php?error=userloggedin");
-}
-
-$errorCode = mysql_entities_fix_string($conn, $_GET['error']);
-$error = interpretErrorCode($errorCode);
+include_once 'helpers/check_not_authorized.php';
+include_once 'helpers/read_errors.php';
 
 ?>
 
@@ -28,7 +21,6 @@ $error = interpretErrorCode($errorCode);
     <body>
         <div class="wrapper w-50">
             <div class="container">
-                <h3 class="text-center" style="color: red"><?php echo $error?> </h3>
                 <h2 class="text-center my-5">Log In</h2>
                 <p class="text-center h5 my-5">Log in to create and update movies that you like.</p>
                 <div class="auth-form-wrapper">

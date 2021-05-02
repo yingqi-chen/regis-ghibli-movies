@@ -5,9 +5,8 @@ $username = $_SESSION['username'];
 require_once 'config/db.php';
 require_once 'helpers/functions.php';
 include_once 'helpers/header.php';
+include_once 'helpers/read_errors.php';
 
-$errorCode = mysql_entities_fix_string($conn, $_GET['error']);
-$error = interpretErrorCode($errorCode);
 ?>
 
 <!DOCTYPE html>
@@ -22,7 +21,6 @@ $error = interpretErrorCode($errorCode);
 
 <div class="wrapper w-50">
 <div class="container">
-    <h3 class="text-center" style="color: red"><?php echo $error?> </h3>
     <h1 class="text-center mb-5">Welcome to the Ghibli World!</h1>
 <!--    The intro video block -->
     <h3 class="my-3">What is Ghibli studio? 👇</h3>

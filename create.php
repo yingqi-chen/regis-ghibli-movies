@@ -1,30 +1,26 @@
 <?php
+session_start();
+
 require_once 'config/db.php';
 require_once 'helpers/functions.php';
 include_once 'helpers/header.php';
+include_once 'helpers/check_authorized.php';
+include_once 'helpers/read_errors.php';
 
-session_start();
-$username = $_SESSION['username'];
-if (!$username){
-    header("location: index.php?error=needauthentication");
-}
 
-$errorCode = mysql_entities_fix_string($conn, $_GET['error']);
-$error = interpretErrorCode($errorCode);
 
 if (!empty($_POST['director_id'])   &&
     !empty($_POST['title'])    &&
     !empty($_POST['year'])){
 
-    $title    = mysql_entities_fix_string($conn, $_POST['title']);
-    $director_id   = mysql_entities_fix_string($conn, $_POST['director_id']);
-    $year     = mysql_entities_fix_string($conn, $_POST['year']);
-    $wiki = mysql_entities_fix_string($conn, $_POST['wiki']);
-    $image_url = mysql_entities_fix_string($conn, $_POST['image_url']);
-    $valid_wiki = validateURL($wiki);
-    $valid_image = validateURL($image_url);
+    $title       = mysql_entities_fix_string($conn, $_POST['title']);
+    $director_id = mysql_entities_fix_string($conn, $_POST['director_id']);
+    $year        = mysql_entities_fix_string($conn, $_POST['year']);
+    $id          = mysql_entities_fix_string($conn, $_POST['id']);
+    $wiki        = mysql_entities_fix_string($conn, $_POST['wiki']);
+    $image_url   = mysql_entities_fix_string($conn, $_POST['image_url']);
 
-    if ($valid_image && $valid_wiki ) {
+    if (check_url_for_wiki_and_image($wiki,$image_url)) {
         $movie_attributes = array(
             "director_id"=>$director_id,
             "title" => $title,
@@ -32,6 +28,7 @@ if (!empty($_POST['director_id'])   &&
             "wiki" => $wiki,
             "image_url"=>$image_url
         );
+
         $insert_result = insert_data($conn, "movies", $movie_attributes);
         if($insert_result){
             echo $insert_result;
@@ -60,7 +57,6 @@ $conn -> close();
 <body>
 <div class="wrapper w-50">
     <div class="container">
-        <h3 class="text-center" style="color: red"><?php echo $error?> </h3>
         <h2 class="text-center my-5">Create your favorite Ghibli movies here!</h2>
         <div class="form-wrapper">
             <form action="create.php" method="post">

@@ -46,7 +46,7 @@ for($j = 0; $j < $rows; ++$j){
                          <button class="delete btn btn-outline-secondary card-link" value="$id">Delete</button>
 
 _INFO;
-    echo ($wiki? ("<a href='$wiki' class='btn btn-outline-secondary card-link'>Wiki</a>"):NULL);
+    echo ($wiki? ("<a href='$wiki' class='btn btn-outline-secondary card-link' target='_blank'>Wiki</a>"):NULL);
     echo "</div></div>";
 
 }

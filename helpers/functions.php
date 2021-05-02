@@ -227,7 +227,7 @@ function grab_director_info($conn, $director_id){
     $conn->close();
 }
 
-function interpretErrorCode($errorCode){
+function interpret_errorCode($errorCode){
     switch ($errorCode){
 
         case 'stmtfailed'| 'executionfailed':

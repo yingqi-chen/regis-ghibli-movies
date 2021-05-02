@@ -31,7 +31,7 @@ if (!empty($_POST['director_id'])   &&
 
         $insert_result = insert_data($conn, "movies", $movie_attributes);
         if($insert_result){
-            echo $insert_result;
+            header("location: index.php");
         }else{
             echo "Insert failed. <br>";
         }
@@ -45,7 +45,10 @@ if (!empty($_POST['director_id'])   &&
 $director_list = query_directors($conn);
 
 $conn -> close();
+
+
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -54,12 +57,13 @@ $conn -> close();
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
     <link rel='stylesheet' href='style/styles.css'>
 </head>
+
 <body>
 <div class="wrapper w-50">
     <div class="container">
         <h2 class="text-center my-5">Create your favorite Ghibli movies here!</h2>
         <div class="form-wrapper">
-            <form action="create.php" method="post">
+            <form action="../create.php" method="post">
                 <label for="director_id" class="form-label">Director</label>
                 <select class="form-select form-select-sm" name='director_id' size="1">
                     <?php
@@ -70,7 +74,7 @@ $conn -> close();
                     }
                     ?>
                 </select><br>
-                <label for="title" class="form-label">Title</label> <br>
+                <label for="title" class="form-label" value="">Title</label> <br>
                 <input type="text" name="title"><br>
                 <label for="year" class="form-label">Year</label> <br>
                 <input type="text" name="year"><br>
@@ -79,7 +83,7 @@ $conn -> close();
                 <label for="image_url" class="form-label">Image(optional)</label> <br>
                 <input type="text" name="image_url" size="80%" ><br>
                 <br>
-                 <input type="submit" value="ADD RECORD" class="btn btn-outline-secondary btn-sm">
+                <input type="submit" value="ADD RECORD" class="btn btn-outline-secondary btn-sm">
             </form>
         </div>
     </div>

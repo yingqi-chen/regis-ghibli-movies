@@ -46,13 +46,11 @@ function update_data($conn, $table_name, $params_array){
     }
 
     if($stmt->execute()){
-        echo "";
+        $stmt->close();
+        return true;
     } else{
-        echo "Something went wrong when updating. Please try again later.";
+        return false;
     }
-
-    $stmt->close();
-    return true;
 }
 
 function query_directors($conn)
@@ -247,8 +245,10 @@ function interpret_errorCode($errorCode){
         case 'userloggedin':
             return "You are already logged in.";
         case 'emptyrequirefield':
-        case 'notvalidfield':
             return "You missed some required field. Please try again.";
+        case 'notvalidfield':
+        case 'notvalidurl':
+            return "The data you input are not valid. Please try again.";
     }
 }
 

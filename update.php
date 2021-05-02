@@ -41,10 +41,10 @@ if (!empty($_POST['director_id'])   &&
         $update_result = update_data($conn, "movies", $movie_attributes);
 
         if($update_result){
-            header("location: index.php");
+             header("location: index.php");
             $_POST = array();
         }else{
-            echo "Something went wrong. $conn->error Please try again later. <br>";
+            echo "Something went wrong. $conn->error Please <a href='index.php'>try</a> again. <br>";
     }}else{
     header("location: update.php?id=$id&error=notvalidurl");
     }

@@ -21,22 +21,28 @@ if (!empty($_POST['director_id'])   &&
     $year     = mysql_entities_fix_string($conn, $_POST['year']);
     $wiki = mysql_entities_fix_string($conn, $_POST['wiki']);
     $image_url = mysql_entities_fix_string($conn, $_POST['image_url']);
-    $movie_attributes = array(
+    $valid_wiki = validateURL($wiki);
+    $valid_image = validateURL($image_url);
+
+    if ($valid_image && $valid_wiki ) {
+        $movie_attributes = array(
             "director_id"=>$director_id,
             "title" => $title,
             "year" => $year,
             "wiki" => $wiki,
             "image_url"=>$image_url
-    );
-    $insert_result = insert_data($conn, "movies", $movie_attributes);
-    if($insert_result){
-        header("location: index.php");
-        $_POST = array();
+        );
+        $insert_result = insert_data($conn, "movies", $movie_attributes);
+        if($insert_result){
+            echo $insert_result;
+        }else{
+            echo "Insert failed. <br>";
+        }
     }else{
-        echo "Insert failed. <br>";
+        header("location: create.php?error=notvalidurl");
     }
 }elseif($_SERVER["REQUEST_METHOD"] == "POST"){
-    header("location: create.php?error=EmptyRequireField");
+    header("location: create.php?error=emptyrequirefield");
 }
 
 $director_list = query_directors($conn);

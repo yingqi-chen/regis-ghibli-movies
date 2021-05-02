@@ -38,6 +38,13 @@ if (!empty($_POST['director_id'])   &&
     $wiki = mysql_entities_fix_string($conn, $_POST['wiki']);
     $image_url = mysql_entities_fix_string($conn, $_POST['image_url']);
 
+    $valid_wiki = validateURL($wiki);
+    $valid_image = validateURL($image_url);
+
+if ($valid_image && $valid_wiki ) {
+    $valid_wiki = validateURL($wiki);
+    $valid_image = validateURL($image_url);
+
     $movie_attributes = array("director_id" => $director_id, "title" => $title, "year" => $year, "id" => $id, "wiki"=>$wiki, "image_url" => $image_url);
 
     $update_result = update_data($conn, "movies", $movie_attributes);
@@ -46,10 +53,12 @@ if (!empty($_POST['director_id'])   &&
         $_POST = array();
     }else{
         echo "Something went wrong. $conn->error Please try again later. <br>";
-    }
+    }}else{
+    header("location: update.php?id=$id&error=notvalidurl");
+}
 }elseif($_SERVER["REQUEST_METHOD"] == "POST"){
     $id = mysql_entities_fix_string($conn, $_POST['id']);
-    header("location: update.php?id=$id&error=EmptyRequireField");
+    header("location: update.php?id=$id&error=emptyrequirefield");
 }
 ?>
 

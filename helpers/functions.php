@@ -242,12 +242,20 @@ function interpretErrorCode($errorCode){
             return "User/Password pair doesn't exist. Please try again.";
         case 'userexisted':
             return "The email is occupied. Please try again.";
-        case 'userLoggedIn':
+        case 'userloggedin':
             return "You are already logged in.";
-        case 'EmptyRequireField':
+        case 'emptyrequirefield':
             return "You missed some required field. Please try again.";
+        case 'notvalidurl':
+            return "Not valid image or wiki. Try again please.";
     }
 }
 
+function validateURL($url){
+    if ($url && (!filter_var($url, FILTER_VALIDATE_URL, FILTER_FLAG_HOST_REQUIRED))) {
+        return false;
+    }
+    return true;
+}
 
-?>
+

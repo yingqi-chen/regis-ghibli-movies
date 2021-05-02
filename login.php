@@ -8,7 +8,7 @@ session_start();
 
 $username = $_SESSION['username'];
 if ($username){
-    header("location: index.php?error=userLoggedIn");
+    header("location: index.php?error=userloggedin");
 }
 
 $errorCode = mysql_entities_fix_string($conn, $_GET['error']);

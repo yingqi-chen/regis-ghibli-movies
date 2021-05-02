@@ -8,6 +8,46 @@ include_once 'helpers/check_not_authorized.php';
 include_once 'helpers/read_errors.php';
 
 
+if (!empty($_POST['username']) && !empty($_POST['password']) && !empty($_POST['email'])){
+    $password = mysql_entities_fix_string($conn, $_POST['password']);
+    $email    = mysql_entities_fix_string($conn, $_POST['email']);
+    $username = mysql_entities_fix_string($conn, $_POST['username']);
+
+    $fail = '';
+    $fail .= validate_username($username);
+    $fail .= validate_password($password);
+    $fail .= validate_email($email);
+
+    $redirect_path = "signup.php";
+
+    if ($fail == ""){
+        $hash     = password_hash($password, PASSWORD_DEFAULT);
+        $user_attributes = array(
+            "username" => $username,
+            "email" => $email,
+            "password" => $hash
+        );
+        $user_exists = query_user($conn, $email, $redirect_path);
+        if($user_exists){
+            header("location: $redirect_path?error=userexisted");
+        }
+        $insert_result = insert_data($conn, "users", $user_attributes);
+        if($insert_result){
+            header("location: login.php");
+            $_POST = array();
+        }else{
+            echo"<h3> Insert failed.</h3><br>";
+            echo "<a href='signup.php'>Try to sign up again.</a>";
+        }
+    }else{
+        header("location: signup.php?error=notvalidfield");
+    }
+
+}elseif($_SERVER["REQUEST_METHOD"] == "POST"){
+    header("location: signup.php?error=emptyrequirefield");
+}
+
+
 ?>
 
 <!DOCTYPE html>
@@ -25,7 +65,7 @@ include_once 'helpers/read_errors.php';
         <h2 class="text-center my-5">Sign up</h2>
         <p class="text-center h5 my-5">So you can start to create, update, delete movies for the website!</p>
         <div class="auth-form-wrapper">
-            <form action="server_signup.php" method="post" onSubmit="return validateSignUp(this)">
+            <form action="signup.php" method="post" onSubmit="return validateSignUp(this)">
                 <label for="username" class="form-label">Username</label><br>
                 <input type="text" name="username"><br>
                 <label for="password" class="form-label">Password</label> <br>

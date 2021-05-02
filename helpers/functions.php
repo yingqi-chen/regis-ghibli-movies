@@ -191,7 +191,9 @@ function query_user($conn, $email, $path)
     if ($result->num_rows>0) {
         return $result->fetch_array(MYSQLI_ASSOC);
     }else{
-        header("location: login.php?error=nouser");
+        if ($path=="login.php"){
+            header("location: login.php?error=nouser");
+        }
     }
 }
 
@@ -241,13 +243,12 @@ function interpret_errorCode($errorCode){
         case 'validationfailed':
             return "User/Password pair doesn't exist. Please try again.";
         case 'userexisted':
-            return "The email is occupied. Please try again.";
+            return "The email is taken. Please try again.";
         case 'userloggedin':
             return "You are already logged in.";
         case 'emptyrequirefield':
+        case 'notvalidfield':
             return "You missed some required field. Please try again.";
-        case 'notvalidurl':
-            return "Not valid image or wiki. Try again please.";
     }
 }
 

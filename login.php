@@ -7,6 +7,26 @@ include_once 'helpers/header.php';
 include_once 'helpers/check_not_authorized.php';
 include_once 'helpers/read_errors.php';
 
+if (!empty($_POST['email']) && !empty($_POST['password'])){
+    $password = mysql_entities_fix_string($conn, $_POST['password']);
+    $email = mysql_entities_fix_string($conn, $_POST['email']);
+
+    $fail = '';
+    $fail .= validate_password($password);
+    $fail .= validate_email($email);
+
+    if ($fail == ""){
+        login_user($conn, $email, $password);
+    }else{
+        header("location: login.php?error=notvalidfield");
+    }
+
+}elseif($_SERVER["REQUEST_METHOD"] == "POST"){
+    header("location: login.php?error=emptyrequirefield");
+}
+
+
+
 ?>
 
 <!DOCTYPE html>
@@ -24,7 +44,7 @@ include_once 'helpers/read_errors.php';
                 <h2 class="text-center my-5">Log In</h2>
                 <p class="text-center h5 my-5">Log in to create and update movies that you like.</p>
                 <div class="auth-form-wrapper">
-                    <form action="server_login.php" method="post" onSubmit="return validateLogIn(this)">
+                    <form action="login.php" method="post" onSubmit="return validateLogIn(this)">
                         <label for="email" class="form-label">Email</label> <br>
                         <input type="text" name="email"><br>
                         <label for="password" class="form-label">Password</label> <br>

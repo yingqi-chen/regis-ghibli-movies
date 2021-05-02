@@ -10,6 +10,22 @@ if (!$username){
     header("location: index.php?error=needauthentication");
 }
 
+$errorCode = mysql_entities_fix_string($conn, $_GET['error']);
+$error = interpretErrorCode($errorCode);
+
+
+if ($_SERVER["REQUEST_METHOD"] == "GET"){
+    $param_id = mysql_entities_fix_string($conn, $_GET["id"]);
+    $director_list = query_directors($conn);
+    $movie = query_movie($conn, $param_id);
+    $display_title = $movie['title'];
+    $display_year = $movie['year'];
+    $display_wiki = $movie['wiki'];
+    $display_image = $movie['image_url'];
+    $conn -> close();
+}
+
+
 if (!empty($_POST['director_id'])   &&
     !empty($_POST['title'])    &&
     !empty($_POST['year'])    &&
@@ -31,16 +47,10 @@ if (!empty($_POST['director_id'])   &&
     }else{
         echo "Something went wrong. $conn->error Please try again later. <br>";
     }
+}elseif($_SERVER["REQUEST_METHOD"] == "POST"){
+    $id = mysql_entities_fix_string($conn, $_POST['id']);
+    header("location: update.php?id=$id&error=EmptyRequireField");
 }
-
-$director_list = query_directors($conn);
-$param_id = mysql_entities_fix_string($conn, $_GET["id"]);
-$movie = query_movie($conn, $param_id);
-$display_title = $movie['title'];
-$display_year = $movie['year'];
-$display_wiki = $movie['wiki'];
-$display_image = $movie['image_url'];
-$conn -> close();
 ?>
 
 <!DOCTYPE html>
@@ -54,6 +64,7 @@ $conn -> close();
 <body>
 <div class="wrapper w-50">
     <div class="container">
+        <h3 class="text-center" style="color: red"><?php echo $error?> </h3>
         <h2 class="text-center my-5">Update movie <?php echo "$display_title here"?></h2>
         <div class="form-wrapper">
             <form action="update.php" method="post">

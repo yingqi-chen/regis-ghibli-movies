@@ -244,6 +244,8 @@ function interpretErrorCode($errorCode){
             return "The email is occupied. Please try again.";
         case 'userLoggedIn':
             return "You are already logged in.";
+        case 'EmptyRequireField':
+            return "You missed some required field. Please try again.";
     }
 }
 

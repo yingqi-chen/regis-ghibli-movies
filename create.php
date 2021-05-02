@@ -9,6 +9,9 @@ if (!$username){
     header("location: index.php?error=needauthentication");
 }
 
+$errorCode = mysql_entities_fix_string($conn, $_GET['error']);
+$error = interpretErrorCode($errorCode);
+
 if (!empty($_POST['director_id'])   &&
     !empty($_POST['title'])    &&
     !empty($_POST['year'])){
@@ -33,7 +36,7 @@ if (!empty($_POST['director_id'])   &&
         echo "Insert failed. <br>";
     }
 }elseif($_SERVER["REQUEST_METHOD"] == "POST"){
-    echo "You didn't give me enough information. Please try again.";
+    header("location: create.php?error=EmptyRequireField");
 }
 
 $director_list = query_directors($conn);
@@ -51,6 +54,7 @@ $conn -> close();
 <body>
 <div class="wrapper w-50">
     <div class="container">
+        <h3 class="text-center" style="color: red"><?php echo $error?> </h3>
         <h2 class="text-center my-5">Create your favorite Ghibli movies here!</h2>
         <div class="form-wrapper">
             <form action="create.php" method="post">
